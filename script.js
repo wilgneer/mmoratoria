@@ -132,31 +132,60 @@ async function sendToGoogleSheets(data) {
   }
 }
 
-// ===============================
-// FAQ (abre/fecha com + e -)
-// ===============================
-document.querySelectorAll(".faq-question").forEach((btn) => {
-  btn.addEventListener("click", () => {
+// ==========================
+// FAQ (accordion otimizado)
+// ==========================
+const faqList = document.querySelector(".faq-list");
+
+if (faqList) {
+  faqList.addEventListener("click", (e) => {
+    const btn = e.target.closest(".faq-question");
+    if (!btn) return;
+
     const item = btn.closest(".faq-item");
+    const answer = item.querySelector(".faq-answer");
+    const icon = btn.querySelector(".faq-icon");
+
     const isOpen = item.classList.contains("is-open");
 
-    // fecha todos (accordion)
-    document.querySelectorAll(".faq-item").forEach((i) => {
-      i.classList.remove("is-open");
-      const b = i.querySelector(".faq-question");
-      const icon = i.querySelector(".faq-icon");
-      if (b) b.setAttribute("aria-expanded", "false");
-      if (icon) icon.textContent = "+";
-    });
+    // Fecha o que estiver aberto (apenas 1, sem varrer tudo)
+    const openItem = faqList.querySelector(".faq-item.is-open");
+    if (openItem && openItem !== item) {
+      const openBtn = openItem.querySelector(".faq-question");
+      const openAnswer = openItem.querySelector(".faq-answer");
+      const openIcon = openItem.querySelector(".faq-icon");
 
-    // abre o clicado
-    if (!isOpen) {
+      openItem.classList.remove("is-open");
+      if (openBtn) openBtn.setAttribute("aria-expanded", "false");
+      if (openIcon) openIcon.textContent = "+";
+      if (openAnswer) openAnswer.style.height = "0px";
+    }
+
+    // Alterna o clicado
+    if (isOpen) {
+      item.classList.remove("is-open");
+      btn.setAttribute("aria-expanded", "false");
+      if (icon) icon.textContent = "+";
+      if (answer) answer.style.height = "0px";
+    } else {
       item.classList.add("is-open");
       btn.setAttribute("aria-expanded", "true");
-      const icon = item.querySelector(".faq-icon");
       if (icon) icon.textContent = "−";
+
+      if (answer) {
+        // define altura real para animar suave
+        answer.style.height = answer.scrollHeight + "px";
+      }
     }
   });
+}
+
+// Ajusta altura quando a tela muda (evita travar resposta aberta)
+window.addEventListener("resize", () => {
+  const openAnswer = document.querySelector(".faq-item.is-open .faq-answer");
+  if (openAnswer) {
+    openAnswer.style.height = openAnswer.scrollHeight + "px";
+  }
 });
 
 // ===============================

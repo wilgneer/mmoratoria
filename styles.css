@@ -970,10 +970,13 @@ body {
 }
 
 .faq-answer {
-  max-height: 0;
+  height: 0;
   overflow: hidden;
-  transition: max-height 0.25s ease;
+  transition: height 0.28s ease;
+  will-change: height;
 }
+
+
 
 .faq-answer p {
   padding: 0 18px 18px;
