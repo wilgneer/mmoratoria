@@ -101,8 +101,8 @@ body {
   transform: translateY(-2px) scale(1.03);
   box-shadow:
     0 0 10px rgba(255,154,31,0.9),
-    0 0 25px rgba(255,154,31,1),
-    0 0 45px rgba(255,154,31,1);
+    0 0 15px rgba(255,154,31,1),
+    0 0 25px rgba(255,154,31,1);
   filter: drop-shadow(0 0 15px rgba(255,154,31,0.9));
 }
 
@@ -148,7 +148,7 @@ body {
   max-width: 1211px;
   min-height: 569px;
   margin: 30px auto 40px;
-  border-radius: 24px 120px 120px 24px;
+  border-radius: 5px 10px 10px 5px;
   overflow: hidden;
   position: relative;
   background: #000;
@@ -186,6 +186,12 @@ body {
   display: inline-block;
 }
 
+.hero-logo img {
+  width: 420px;      /* 👈 tamanho ideal desktop */
+  max-width: 100%;
+  height: auto;
+}
+
 /* container das ondas */
 .sound-waves {
   position: absolute;
@@ -197,7 +203,8 @@ body {
   z-index: -1;
 }
 
-/* cada barrinha */
+
+/* cada barrinha 
 .sound-waves span {
   width: 6px;
   height: 18px;
@@ -207,12 +214,14 @@ body {
   animation: wave-bar 0.8s ease-in-out infinite;
   transform-origin: bottom center;
 }
+*/
 
-/* variação entre as barras */
+/* variação entre as barras 
 .sound-waves span:nth-child(2) { animation-delay: 0.1s; }
 .sound-waves span:nth-child(3) { animation-delay: 0.2s; }
 .sound-waves span:nth-child(4) { animation-delay: 0.3s; }
 .sound-waves span:nth-child(5) { animation-delay: 0.4s; }
+*/
 
 @keyframes wave-bar {
   0%   { transform: scaleY(0.4); }
@@ -223,8 +232,8 @@ body {
 /* coluna da imagem */
 .hero-media {
   position: relative;
-  border-top-right-radius: 120px;
-  border-bottom-right-radius: 120px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
   overflow: hidden;
 }
 
@@ -364,7 +373,7 @@ body {
 }
 
 .hero-badge-pill {
-  background: #ffffff;
+  background: #ff9a1f;
   color: #000000;
   border-radius: 999px;
   padding: 3px 10px;
@@ -432,75 +441,129 @@ body {
 /* ================================================
    SOBRE O PROFESSOR — ESTILO PREMIUM
    ================================================ */
-
-.section-about-pro {
-  padding: 60px 0;
+.section-about {
+  background: #050505;
 }
 
-.about-pro-grid {
+.about-shell {
+  border-radius: 34px;
+  padding: 14px; /* cria “margem” interna igual ao exemplo */
+  background: radial-gradient(circle at 10% 10%, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0) 60%),
+              rgba(0, 0, 0, 0.25);
+  box-shadow:
+    0 0 0 1px rgb(255, 123, 0),
+    0 20px 70px rgba(0,0,0,0.75);
+}
+
+/* card principal (fundo escuro com borda elegante) */
+.about-surface {
+  border-radius: 28px;
+  background: radial-gradient(circle at 20% 15%, rgba(255,255,255,0.05), transparent 55%),
+              linear-gradient(180deg, rgba(0, 0, 0, 0.55), rgba(0,0,0,0.92));
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+}
+
+/* 2 cards colados */
+.about-dual {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  gap: 50px;
+  grid-template-columns: 1fr 1fr;
+  gap: 0; /* colados */
+  border-radius: 22px;
+  overflow: hidden; /* garante corte perfeito */
+}
+
+/* cards internos */
+.about-card {
+  background: rgba(10,10,10,0.25);
+  min-height: 520px;
+}
+
+/* remove radius interno para ficar colado */
+.about-card-image {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.about-card-text {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 42px 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* FOTO com “moldura” e radius grande (igual exemplo) */
+.about-card-image {
+  display: flex;
   align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.06), transparent 55%);
 }
 
-/* === FOTO ESQUERDA === */
-.about-pro-photo {
-  position: relative;
-}
-
-.about-pro-photo img {
+.about-card-image img {
   width: 100%;
-  border-radius: 60px;
+  height: 100%;
+  max-height: 520px;
   object-fit: cover;
   display: block;
-  box-shadow: 0 0 45px rgba(255, 120, 0, 0.25);
-  border: 2px solid rgba(255, 120, 0, 0.35);
-}
-
-/* === BLOCO DE TEXTO DIREITA === */
-
-.about-pro-content {
-  background: #0c0c0c;
-  padding: 40px 44px;
-  border-radius: 40px;
+  border-radius: 44px; /* radius grande da foto */
   box-shadow:
-    0 0 60px rgba(255, 120, 0, 0.10),
-    0 0 0 1px rgba(255, 120, 0, 0.20);
-  border: 1px solid rgba(255, 120, 0, 0.25);
+    0 0 0 1px rgb(255, 115, 0),  /* moldura clara */
+    0 18px 60px rgba(0,0,0,0.75);      /* profundidade */
 }
 
-.about-pro-title {
-  font-size: 2.2rem;
+/* Texto estilo exemplo */
+.about-card-text h2 {
+  font-size: 2rem;
+  margin-bottom: 14px;
   font-weight: 700;
-  margin-bottom: 22px;
-}
-
-.about-pro-title span {
-  color: var(--accent-strong);
-}
-
-.about-pro-content p {
-  color: #d6d6d6;
-  margin-bottom: 18px;
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.about-pro-content strong {
   color: #ffffff;
 }
 
-/* ==== RESPONSIVO ==== */
+.about-card-text h2 span {
+  color: var(--accent);
+}
 
-@media (max-width: 960px) {
-  .about-pro-grid {
+.about-card-text p {
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.80);
+  margin-bottom: 14px;
+}
+
+.about-card-text strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .about-dual {
     grid-template-columns: 1fr;
-    gap: 30px;
   }
 
-  .about-pro-content {
-    padding: 28px 24px;
+  .about-card {
+    min-height: auto;
+  }
+
+  .about-card-image {
+    padding: 14px;
+  }
+
+  .about-card-image img {
+    max-height: 380px;
+    border-radius: 34px;
+  }
+
+  .about-card-text {
+    padding: 28px 22px 32px;
   }
 }
 
@@ -778,6 +841,156 @@ body {
   border: 1px solid rgba(255,255,255,0.4);
 }
 
+
+/* =========================================================
+   ENDEREÇO / LOCAL
+   ========================================================= */
+
+.section-location {
+  background: radial-gradient(circle at top, #1c0d07 0, #050505 60%);
+  padding-top: 54px;
+  padding-bottom: 54px;
+}
+
+.location-card {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 0;
+  border-radius: 28px;
+  overflow: hidden;
+  background: radial-gradient(circle at 20% 15%, rgba(0, 0, 0, 0.05), transparent 55%),
+              linear-gradient(180deg, rgba(20,20,20,0.7), rgba(0,0,0,0.92));
+  box-shadow:
+    0 0 0 1px rgb(255, 123, 0),
+    0 22px 70px rgba(0,0,0,0.75);
+}
+
+.location-photo img {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  object-fit: cover;
+  display: block;
+}
+
+.location-content {
+  padding: 34px 34px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.location-title {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.location-subtitle {
+  color: rgba(255,255,255,0.75);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.location-info p {
+  color: rgba(255,255,255,0.82);
+  margin-bottom: 10px;
+  line-height: 1.55;
+}
+
+.location-info strong {
+  color: #fff;
+}
+
+.btn-secondary {
+  color: #ff7300;
+}
+
+@media (max-width: 900px) {
+  .location-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+
+.section-faq {
+  background: #050505;
+  padding-top: 62px;
+  padding-bottom: 78px;
+}
+
+.faq-list {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.faq-item {
+  border-radius: 20px;
+  overflow: hidden;
+  background: radial-gradient(circle at 20% 10%, rgba(255,255,255,0.05), transparent 55%),
+              rgba(12,12,12,0.92);
+  box-shadow:
+    0 0 0 1px rgba(255,122,0,0.14),
+    0 18px 45px rgba(0,0,0,0.65);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 18px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: #fff;
+  text-align: left;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.faq-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,122,0,0.12);
+  border: 1px solid rgba(255,122,0,0.25);
+  color: var(--accent);
+  font-size: 1.25rem;
+  flex: 0 0 auto;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+
+.faq-answer p {
+  padding: 0 18px 18px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.65;
+}
+
+/* estado aberto */
+.faq-item.is-open .faq-answer {
+  max-height: 240px;
+}
+
+.faq-item.is-open .faq-icon {
+  background: rgba(255,122,0,0.20);
+  border-color: rgba(255,122,0,0.45);
+}
+
 /* =========================================================
    MODAL
    ========================================================= */
@@ -888,7 +1101,161 @@ body {
   color: #ff4d4d;
 }
 
+/* =========================================================
+   PATCH – CTA PROVA SOCIAL + EXPERIÊNCIAS (6 QUADRADOS)
+   Cole este bloco no FINAL do styles.css
+   ========================================================= */
 
+/* Ajuste fino: evita "buraco" grande quando usar .center em áreas novas */
+.section-proof .center,
+.section-plans .center {
+  margin-top: 22px; /* reduz um pouco (antes era 32px global) */
+}
+
+/* CTA – Prova Social */
+.proof-cta {
+  margin-top: 22px;
+  text-align: center;
+}
+
+.proof-cta-sub {
+  margin-top: 12px;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.6;
+}
+
+/* =========================================================
+   EXPERIÊNCIAS – QUADRADOS PERFEITOS (IGUAL AO MOCK)
+   ========================================================= */
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1080px;
+  margin: 24px auto 0;
+}
+
+/* Quadrado EXATO */
+.experience-card {
+  width: 100%;
+  aspect-ratio: 1 / 1;          /* QUADRADO */
+  border-radius: 18px;
+  overflow: hidden;
+  background: #000;
+  box-shadow:
+    0 0 0 1px rgba(255,122,0,0.25),
+    0 18px 40px rgba(0,0,0,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Imagem bem comportada dentro do quadrado */
+.experience-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;            /* preenche como print */
+  object-position: center;
+  display: block;
+}
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+/* Tablet */
+@media (max-width: 960px) {
+  .experience-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .experience-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+/* =========================================================
+   BOTÃO FLUTUANTE WHATSAPP
+   ========================================================= */
+
+.whatsapp-float {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #25d366, #1ebe57);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.4),
+    0 0 0 6px rgba(37, 211, 102, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.whatsapp-float img {
+  width: 28px;
+  height: 28px;
+}
+
+.whatsapp-float:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.55),
+    0 0 0 10px rgba(37, 211, 102, 0.35);
+}
+
+/* Mobile */
+@media (max-width: 720px) {
+  .whatsapp-float {
+    width: 54px;
+    height: 54px;
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .whatsapp-float img {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* =========================================================
+   MAPA – LOCAL DO TREINAMENTO
+   ========================================================= */
+
+.location-map {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  position: relative;
+}
+
+.location-map iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  border: none;
+  display: block;
+  filter: grayscale(10%) contrast(1.05) brightness(0.95);
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .location-map,
+  .location-map iframe {
+    min-height: 300px;
+  }
+}
 
 /* =========================================================
    RESPONSIVO
@@ -927,6 +1294,8 @@ body {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+
 
 @media (max-width: 720px) {
   .hero {
@@ -986,3 +1355,4 @@ body {
     align-items: flex-start;
   }
 }
+
