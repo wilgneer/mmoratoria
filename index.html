@@ -1,107 +1,124 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <!-- Script for cap -->
   <!-- Google Tag Manager -->
-  <script>(function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-TZ8GTJV7');</script>
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-TZ8GTJV7');
+  </script>
   <!-- End Google Tag Manager -->
 
   <meta charset="UTF-8" />
-  <title>Destrave sua Voz BH</title>
+  <title>Destrave sua Voz - Imersão em Oratória</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- PERFORMANCE: pré-carrega a imagem LCP do Hero -->
+  <link rel="preload" as="image" href="img/monica.png" fetchpriority="high">
 
   <!-- Fonte -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
   <!-- FAVICON -->
   <link rel="icon" href="img/mm.png" type="image/png">
   <link rel="shortcut icon" href="img/mm.png" type="image/png">
   <link rel="apple-touch-icon" href="img/mm.png">
-  
+
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
 
+<body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TZ8GTJV7" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TZ8GTJV7"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
   <!-- End Google Tag Manager (noscript) -->
 
   <!-- HERO =================================================== -->
-<header class="hero">
+  <header class="hero">
     <div class="hero-grid">
-        <!-- COLUNA ESQUERDA: TEXTO -->
-        <div class="hero-inner">
-            <div class="hero-logo">
-                <img src="img/logo.png" alt="Destrave sua Voz">
-                <div class="sound-waves">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-
-            <div class="hero-panel">
-                <p class="hero-tagline">
-                    Comunicação e Oratória
-                </p>
-
-                <h1 class="hero-title">
-                    Domine a oratória<br>
-                    e seja lembrado em cada fala.
-                </h1>
-
-                <p class="hero-subtitle">
-                    Aprenda técnicas práticas para falar com segurança, presença e clareza
-                    mesmo que hoje você trave, esqueça o que ia dizer ou morra de medo de
-                    falar em público.
-                </p>
-
-                <div class="hero-bottom-row">
-                    <div class="hero-badge-wrapper">
-                        <span class="hero-badge-label">Próxima turma</span>
-                        <div class="hero-badge">
-                            <span class="hero-badge-pill">18/01</span>
-                            <span>Imersão presencial em Belo Horizonte</span>
-                        </div>
-                    </div>
-
-                    <div class="hero-cta-wrapper">
-                        <button class="btn-primary hero-cta" data-open-modal>
-                            <span>Quero dominar a oratória</span>
-                            <span class="arrow">→</span>
-                        </button>
-                        <p class="hero-trust">
-                            Vagas limitadas já garanta aqui!
-                        </p>
-                    </div>
-                </div>
-            </div>
+      <!-- COLUNA ESQUERDA: TEXTO -->
+      <div class="hero-inner">
+        <div class="hero-logo">
+          <img src="img/logo.png" alt="Destrave sua Voz" width="420" height="120" decoding="async">
+          <div class="sound-waves" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
         </div>
 
-        <!-- COLUNA DIREITA: IMAGEM RESPONSIVA -->
-        <div class="hero-media">
-            <!-- Desktop / Tablet -->
-            <img src="img/monica.png" alt="Mônica Maciel conduzindo imersão de oratória" class="hero-img hero-img-desktop">
+        <div class="hero-panel">
+          <p class="hero-tagline">Comunicação e Oratória</p>
 
-            <!-- Mobile (por cima, estilo perfil) -->
-            <img src="img/monica.png" alt="Retrato de Mônica Maciel" class="hero-img hero-img-mobile">
+          <h1 class="hero-title">
+            Domine a oratória<br>
+            e seja lembrado em cada fala.
+          </h1>
+
+          <p class="hero-subtitle">
+            Aprenda técnicas práticas para falar com segurança, presença e clareza
+            mesmo que hoje você trave, esqueça o que ia dizer ou morra de medo de
+            falar em público.
+          </p>
+
+          <div class="hero-bottom-row">
+            <div class="hero-badge-wrapper">
+              <span class="hero-badge-label">Próxima turma</span>
+              <div class="hero-badge">
+                <span class="hero-badge-pill">18/01</span>
+                <span>Imersão presencial em Belo Horizonte</span>
+              </div>
+            </div>
+
+            <div class="hero-cta-wrapper">
+              <button class="btn-primary hero-cta" data-open-modal>
+                <span>Quero dominar a oratória</span>
+                <span class="arrow">→</span>
+              </button>
+              <p class="hero-trust">Vagas limitadas já garanta aqui!</p>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <!-- COLUNA DIREITA: IMAGEM RESPONSIVA (LCP no mobile) -->
+      <div class="hero-media">
+        <!-- Desktop / Tablet (não é a LCP no mobile, pode ser mais leve) -->
+        <img
+          src="img/monica.png"
+          alt="Mônica Maciel conduzindo imersão de oratória"
+          class="hero-img hero-img-desktop"
+          width="720"
+          height="900"
+          decoding="async"
+          loading="lazy"
+          fetchpriority="low"
+        >
+
+        <!-- Mobile (prioridade alta para melhorar LCP) -->
+        <img
+          src="img/monica.png"
+          alt="Mônica Maciel conduindo imersão de oratória"
+          class="hero-img hero-img-mobile"
+          width="720"
+          height="900"
+          decoding="async"
+          loading="eager"
+          fetchpriority="high"
+        >
+      </div>
     </div>
-</header>
+  </header>
 
   <main>
-
     <!-- METODOLOGIA ========================================= -->
     <section class="section section-method">
       <div class="container">
@@ -115,7 +132,6 @@
         </p>
 
         <div class="method-grid">
-          <!-- Card 1 -->
           <article class="method-card">
             <div class="method-number">1</div>
             <h3>Presença</h3>
@@ -126,7 +142,6 @@
             </p>
           </article>
 
-          <!-- Card 2 -->
           <article class="method-card">
             <div class="method-number">2</div>
             <h3>Segurança</h3>
@@ -137,7 +152,6 @@
             </p>
           </article>
 
-          <!-- Card 3 -->
           <article class="method-card">
             <div class="method-number">3</div>
             <h3>Clareza</h3>
@@ -168,33 +182,33 @@
         </p>
 
         <div class="gallery-wrapper">
-          <button class="gallery-arrow gallery-prev" id="galleryPrev">‹</button>
+          <button class="gallery-arrow gallery-prev" id="galleryPrev" aria-label="Voltar imagens">‹</button>
 
           <div class="gallery-track" id="galleryTrack">
             <div class="gallery-item">
-              <img src="img/treinamento1.jpg" alt="Turma de imersão em oratória">
+              <img src="img/treinamento1.jpg" alt="Turma de imersão em oratória" loading="lazy" decoding="async">
             </div>
             <div class="gallery-item">
-              <img src="img/treinamento6.jpg" alt="Participantes apresentando no palco">
+              <img src="img/treinamento6.jpg" alt="Participantes apresentando no palco" loading="lazy" decoding="async">
             </div>
             <div class="gallery-item">
-              <img src="img/treinamento3.jpg" alt="Momento de feedback em grupo">
+              <img src="img/treinamento3.jpg" alt="Momento de feedback em grupo" loading="lazy" decoding="async">
             </div>
             <div class="gallery-item">
-              <img src="img/treinamento4.jpg" alt="treinamento4">
+              <img src="img/treinamento4.jpg" alt="Treinamento 4" loading="lazy" decoding="async">
             </div>
             <div class="gallery-item">
-              <img src="img/treinamento5.jpg" alt="treinamento5">
+              <img src="img/treinamento5.jpg" alt="Treinamento 5" loading="lazy" decoding="async">
             </div>
             <div class="gallery-item">
-              <img src="img/treinamento2.jpg" alt="treinamento2">
+              <img src="img/treinamento2.jpg" alt="Treinamento 2" loading="lazy" decoding="async">
             </div>
             <div class="gallery-item">
-              <img src="img/treinamento7.jpg" alt="treinamento7">
+              <img src="img/treinamento7.jpg" alt="Treinamento 7" loading="lazy" decoding="async">
             </div>
           </div>
 
-          <button class="gallery-arrow gallery-next" id="galleryNext">›</button>
+          <button class="gallery-arrow gallery-next" id="galleryNext" aria-label="Avançar imagens">›</button>
         </div>
       </div>
     </section>
@@ -205,88 +219,92 @@
       </button>
     </div>
 
+    <!-- PROVA SOCIAL + EXPERIÊNCIAS ========================= -->
     <section class="section section-proof">
       <div class="container">
         <h2 class="proof-title">
           <span>Mais de 6 mil alunos</span> transformaram<br>
           a comunicação através deste método
         </h2>
-    
-        
-          <h3 class="proof-cta-sub">
-            <br>Agora confira algumas experiências contadas
-          </h3>
-        </div>
-    
+
+        <h3 class="proof-cta-sub">
+          <br>Agora confira algumas experiências contadas
+        </h3>
+
         <!-- 6 QUADRADOS (imagens de depoimentos) -->
         <div class="experience-grid" aria-label="Experiências e depoimentos em imagens">
           <div class="experience-card">
-            <img src="img/depo1.jpg" alt="Depoimento em imagem 1" loading="lazy">
+            <img src="img/depo1.jpg" alt="Depoimento em imagem 1" loading="lazy" decoding="async">
           </div>
           <div class="experience-card">
-            <img src="img/depo2.jpg" alt="Depoimento em imagem 2" loading="lazy">
+            <img src="img/depo2.jpg" alt="Depoimento em imagem 2" loading="lazy" decoding="async">
           </div>
           <div class="experience-card">
-            <img src="img/depo3.jpg" alt="Depoimento em imagem 3" loading="lazy">
+            <img src="img/depo3.jpg" alt="Depoimento em imagem 3" loading="lazy" decoding="async">
           </div>
           <div class="experience-card">
-            <img src="img/depo4.jpg" alt="Depoimento em imagem 4" loading="lazy">
+            <img src="img/depo4.jpg" alt="Depoimento em imagem 4" loading="lazy" decoding="async">
           </div>
           <div class="experience-card">
-            <img src="img/depo5.jpg" alt="Depoimento em imagem 5" loading="lazy">
+            <img src="img/depo5.jpg" alt="Depoimento em imagem 5" loading="lazy" decoding="async">
           </div>
           <div class="experience-card">
-            <img src="img/depo6.jpg" alt="Depoimento em imagem 6" loading="lazy">
+            <img src="img/depo6.jpg" alt="Depoimento em imagem 6" loading="lazy" decoding="async">
           </div>
         </div>
       </div>
     </section>
-        
-        <!-- DEPOIMENTOS EM VÍDEO (SHORTS) ========================= -->
-        <section class="section section-testimonials" id="depoimentos">
-            <div class="container">
-                <h3 class="section-subtitle testimonials-heading">
-                    Agora fique com alguns depoimentos dos nossos alunos
-                </h3>
-        
-                <div class="testimonials-grid">
-                    <!-- Depoimento 1 -->
-                    <article class="testimonial-card">
-                        <div class="shorts-frame">
-                            <iframe src="https://www.youtube.com/embed/Pp1wgGiL9Oc" title="Depoimento de aluno 1"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen loading="lazy">
-                            </iframe>
-                        </div>
-                    </article>
-        
-                    <!-- Depoimento 2 -->
-                    <article class="testimonial-card">
-                        <div class="shorts-frame">
-                            <iframe src="https://www.youtube.com/embed/plAeZXDzyX4" title="Depoimento de aluno 2"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen loading="lazy">
-                            </iframe>
-                        </div>
-                    </article>
-        
-                    <!-- Depoimento 3 -->
-                    <article class="testimonial-card">
-                        <div class="shorts-frame">
-                            <iframe src="https://www.youtube.com/embed/q24PMtKcyoA" title="Depoimento de aluno 3"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen loading="lazy">
-                            </iframe>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
 
-    
+    <!-- DEPOIMENTOS EM VÍDEO (SHORTS) ========================= -->
+    <section class="section section-testimonials" id="depoimentos">
+      <div class="container">
+        <h3 class="section-subtitle testimonials-heading">
+          Agora fique com alguns depoimentos dos nossos alunos
+        </h3>
+
+        <div class="testimonials-grid">
+          <article class="testimonial-card">
+            <div class="shorts-frame">
+              <iframe
+                src="https://www.youtube.com/embed/Pp1wgGiL9Oc"
+                title="Depoimento de aluno 1"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy">
+              </iframe>
+            </div>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="shorts-frame">
+              <iframe
+                src="https://www.youtube.com/embed/plAeZXDzyX4"
+                title="Depoimento de aluno 2"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy">
+              </iframe>
+            </div>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="shorts-frame">
+              <iframe
+                src="https://www.youtube.com/embed/q24PMtKcyoA"
+                title="Depoimento de aluno 3"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy">
+              </iframe>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <div class="center plans-cta">
       <button class="btn-primary" data-open-modal>
         Quero me inscrever agora →
@@ -305,7 +323,6 @@
         </p>
 
         <div class="plans-grid">
-          <!-- PLANO PRATA -->
           <article class="plan-card plan-prata">
             <h3>Plano Prata</h3>
             <p class="plan-label">Para quem quer dar o primeiro passo</p>
@@ -313,7 +330,6 @@
               <li>. Acesso ao evento</li>
               <li>. Certificado<br><br></li>
             </ul>
-            <p></p>
             <p class="plan-price">R$ 97,00</p>
             <p class="plan-subprice">ou 12x de R$ 9,97</p>
             <button class="btn-primary plan-btn" data-open-modal>
@@ -321,7 +337,6 @@
             </button>
           </article>
 
-          <!-- PLANO OURO -->
           <article class="plan-card plan-ouro destaque">
             <div class="plan-tag">Mais escolhido</div>
             <h3>Plano Ouro</h3>
@@ -339,7 +354,6 @@
             </button>
           </article>
 
-          <!-- PLANO DIAMANTE -->
           <article class="plan-card plan-diamante">
             <h3>Plano Diamante</h3>
             <p class="plan-label">Para quem quer performance máxima</p>
@@ -357,13 +371,17 @@
       </div>
     </section>
 
+    <!-- LOCAL =============================================== -->
+    <!-- LOCAL =============================================== -->
     <section class="section section-location" id="endereco">
       <div class="container">
         <div class="location-card">
-          <div class="location-map">
-            <iframe
-              src="https://www.google.com/maps?q=Linea%20Empresarial%20Rua%20dos%20Timbiras%202072%20Lourdes%20Belo%20Horizonte%20MG&output=embed"
-              allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    
+          <!-- TROCA: sai iframe do Google Maps e entra imagem -->
+          <div class="location-photo">
+            <img src="img/linea.webp"
+              alt="Local do treinamento - Linea Empresarial, Rua dos Timbiras, 2072 - Lourdes, Belo Horizonte, MG"
+              loading="lazy" decoding="async">
           </div>
     
           <div class="location-content">
@@ -379,73 +397,65 @@
             </div>
     
             <a href="https://www.google.com/maps?q=Linea+Empresarial+Rua+dos+Timbiras+2072+Lourdes+Belo+Horizonte+MG"
-              target="_blank" class="btn-secondary">
+              target="_blank" class="btn-secondary" rel="noopener">
               Ver no mapa <span class="arrow">→</span>
             </a>
           </div>
+    
         </div>
       </div>
     </section>
 
+    <!-- SOBRE =============================================== -->
     <section class="section section-about">
       <div class="container">
-    
-        <!-- MOLDURA EXTERNA (efeito premium) -->
         <div class="about-shell">
           <div class="about-surface">
-    
-            <!-- DOIS CARDS COLADOS -->
             <div class="about-dual">
-    
-              <!-- CARD IMAGEM -->
               <div class="about-card about-card-image">
-                <img src="img/perfil.jpg" alt="Mônica Maciel">
+                <img src="img/perfil.jpg" alt="Mônica Maciel" loading="lazy" decoding="async">
               </div>
-    
-              <!-- CARD TEXTO -->
+
               <div class="about-card about-card-text">
                 <h2>Sobre a <span>Mônica Maciel</span></h2>
-    
+
                 <p>
                   <strong>Quem é Mônica Maciel?</strong> Empresária, formada em Marketing
                   e Gestão Comercial desde 2013, Treinadora Comportamental Sistêmica
                   e Consteladora.
                 </p>
-    
+
                 <p>
                   Com um talento nato para transformar vidas por meio da comunicação,
                   ela se especializou em Comunicação e Oratória, dedicando sua carreira
                   a ajudar pessoas a descobrirem seu propósito e ganharem confiança.
                 </p>
-    
+
                 <p>
                   Desde 2022, Mônica já formou mais de 6 mil alunos em todo o Brasil com
                   o método exclusivo <strong>Destrave da Voz PSC</strong>.
                 </p>
-    
+
                 <p>
                   Seu trabalho é focado em soluções práticas e transformadoras para
                   quem busca se comunicar com mais impacto, autoridade e clareza.
                 </p>
               </div>
-    
             </div>
-    
           </div>
         </div>
-    
       </div>
     </section>
 
+    <!-- FAQ ==================================================== -->
     <section class="section section-faq" id="faq">
       <div class="container">
         <h2 class="section-title">FAQ <span>| Perguntas mais frequentes</span></h2>
         <p class="section-subtitle">
           Tire suas dúvidas rapidamente. Se ainda ficar alguma pergunta, fale com a gente no WhatsApp.
         </p>
-    
+
         <div class="faq-list">
-    
           <div class="faq-item">
             <button class="faq-question" type="button" aria-expanded="false">
               <span>Para quem é o curso?</span>
@@ -458,7 +468,7 @@
               </p>
             </div>
           </div>
-    
+
           <div class="faq-item">
             <button class="faq-question" type="button" aria-expanded="false">
               <span>Preciso ter experiência com oratória?</span>
@@ -471,7 +481,7 @@
               </p>
             </div>
           </div>
-    
+
           <div class="faq-item">
             <button class="faq-question" type="button" aria-expanded="false">
               <span>O treinamento é presencial ou online?</span>
@@ -484,7 +494,7 @@
               </p>
             </div>
           </div>
-    
+
           <div class="faq-item">
             <button class="faq-question" type="button" aria-expanded="false">
               <span>Vou receber certificado?</span>
@@ -496,7 +506,7 @@
               </p>
             </div>
           </div>
-    
+
           <div class="faq-item">
             <button class="faq-question" type="button" aria-expanded="false">
               <span>Como faço para garantir minha vaga?</span>
@@ -509,16 +519,14 @@
               </p>
             </div>
           </div>
-    
         </div>
       </div>
     </section>
 
     <!-- BOTÃO FLUTUANTE WHATSAPP -->
-    <a href="https://wa.me/5531999655378" class="whatsapp-float" target="_blank" aria-label="Falar no WhatsApp">
-      <img src="img/wpp.png" alt="WhatsApp">
+    <a href="https://wa.me/5531999655378" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+      <img src="img/wpp.png" alt="WhatsApp" width="28" height="28" decoding="async" loading="lazy">
     </a>
-
   </main>
 
   <!-- MODAL DE CAPTURA ====================================== -->
@@ -564,10 +572,5 @@
   </div>
 
   <script src="script.js" defer></script>
-
- 
-
 </body>
 </html>
-
-
