@@ -104,15 +104,34 @@ if (leadForm) {
     }
 
     // fecha modal (opcional) antes de redirecionar
+    // fecha o modal e mostra os planos
     setTimeout(() => {
       closeModal();
+      mostrarPlanos();
     }, 120);
 
+    // NÃO redireciona automaticamente
+    // (deixe o usuário escolher o plano)
+
     // redireciona rápido para aumentar percepção de velocidade
-    setTimeout(() => {
-      window.location.href = GREENN_CHECKOUT_URL;
-    }, 250);
+    //setTimeout(() => {
+      //window.location.href = GREENN_CHECKOUT_URL;
+    //}, 250);
+    
   });
+  const planosSection = document.getElementById("planos");
+
+  function mostrarPlanos() {
+    if (!planosSection) return;
+
+    planosSection.classList.remove("hidden");
+    planosSection.classList.add("show");
+
+    planosSection.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
 }
 
 // ===============================
@@ -285,6 +304,29 @@ function setupLiteYouTube() {
 }
 
 setupLiteYouTube();
+
+// === Links da Greenn por plano (troque pelas URLs reais) ===
+const GREENN_URLS = {
+  prata: "https://payfast.greenn.com.br/pre-checkout/149180",
+  ouro: "https://payfast.greenn.com.br/pre-checkout/149180",
+  diamante: "https://payfast.greenn.com.br/pre-checkout/149180",
+};
+
+// clique nos botões de plano -> redireciona para a Greenn
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".plan-btn");
+  if (!btn) return;
+
+  const plan = btn.getAttribute("data-plan");
+  const url = GREENN_URLS[plan];
+
+  if (!url || url.includes("SEU-LINK-GREENN")) {
+    alert("Link do checkout ainda não configurado para este plano.");
+    return;
+  }
+
+  window.location.href = url;
+});
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {

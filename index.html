@@ -271,19 +271,19 @@
         <div class="testimonials-grid">
           <article class="testimonial-card">
             <div class="shorts-frame">
-              <div class="yt-lite" data-id="Pp1wgGiL9Oc" data-label="Depoimento — Enfermeira"></div>
+              <div class="yt-lite" data-id="Pp1wgGiL9Oc" data-label="Depoimento DF — Médico urologista"></div>
             </div>
           </article>
 
           <article class="testimonial-card">
             <div class="shorts-frame">
-              <div class="yt-lite" data-id="plAeZXDzyX4" data-label="Depoimento DF — Médico urologista"></div>
+              <div class="yt-lite" data-id="plAeZXDzyX4" data-label="Depoimento DF — Advogada"></div>
             </div>
           </article>
 
           <article class="testimonial-card">
             <div class="shorts-frame">
-              <div class="yt-lite" data-id="q24PMtKcyoA" data-label="Depoimento DF — Advogada"></div>
+              <div class="yt-lite" data-id="q24PMtKcyoA" data-label="Depoimento DF — Empresária"></div>
             </div>
           </article>
         </div>
@@ -297,7 +297,7 @@
     </div>
 
     <!-- PLANOS ============================================== -->
-    <section class="section section-plans" id="planos">
+    <section class="section section-plans hidden" id="planos">
       <div class="container">
         <h2 class="section-title">
           Escolha o plano ideal para <span>destravar sua voz</span>
@@ -317,7 +317,7 @@
             </ul>
             <p class="plan-price">R$ 97,00</p>
             <p class="plan-subprice">ou 12x de R$ 9,97</p>
-            <button class="btn-primary plan-btn" data-open-modal>
+            <button class="btn-primary plan-btn" data-plan="prata">
               Quero o plano Prata
             </button>
           </article>
@@ -334,7 +334,7 @@
             </ul>
             <p class="plan-price">R$ 147,00</p>
             <p class="plan-subprice">ou 12x de R$ 15,11</p>
-            <button class="btn-primary plan-btn" data-open-modal>
+            <button class="btn-primary plan-btn" data-plan="ouro">
               Quero o plano Ouro
             </button>
           </article>
@@ -348,7 +348,7 @@
             </ul>
             <p class="plan-price">R$ 397,00</p>
             <p class="plan-subprice">condições especiais à vista</p>
-            <button class="btn-primary plan-btn" data-open-modal>
+            <button class="btn-primary plan-btn" data-plan="diamante">
               Quero o plano Diamante
             </button>
           </article>
@@ -508,6 +508,43 @@
       </div>
     </section>
 
+    <section class="section section-final-cta" id="final-cta">
+  <div class="container">
+
+    <h2 class="final-cta-title">Pronto para destravar sua voz?</h2>
+    <p class="final-cta-subtitle">
+      Garanta sua vaga agora e descubra como podemos transformar sua comunicação
+      em presença, segurança e clareza.
+    </p>
+
+    <div class="final-cta-points">
+      <ul class="final-cta-list">
+        <li><span class="final-cta-check" aria-hidden="true">✓</span>Imersão prática e direta ao ponto</li>
+        <li><span class="final-cta-check" aria-hidden="true">✓</span>Feedbacks e exercícios guiados</li>
+      </ul>
+
+      <ul class="final-cta-list">
+        <li><span class="final-cta-check" aria-hidden="true">✓</span>Metodologia validada por +6 mil alunos</li>
+        <li><span class="final-cta-check" aria-hidden="true">✓</span>Resultados perceptíveis desde o 1º dia</li>
+      </ul>
+    </div>
+
+    <div class="final-cta-actions">
+      <button class="btn-primary final-cta-btn" data-open-modal>
+        <span>Quero garantir minha vaga</span>
+        <span class="arrow">→</span>
+      </button>
+    </div>
+    <!--
+    <div class="final-cta-badges" aria-label="Garantias e benefícios">
+      <div class="final-cta-badge"><span class="final-cta-dot" aria-hidden="true">✓</span>Sem compromisso</div>
+      <div class="final-cta-badge"><span class="final-cta-dot" aria-hidden="true">✓</span>Vagas limitadas</div>
+      <div class="final-cta-badge"><span class="final-cta-dot" aria-hidden="true">✓</span>Suporte dedicado</div>
+    </div>
+    -->
+  </div>
+</section>
+
     <!-- BOTÃO FLUTUANTE WHATSAPP -->
     <a href="https://wa.me/5531999655378" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
       <img src="img/wpp.png" alt="WhatsApp" width="28" height="28" decoding="async" loading="lazy">
@@ -556,7 +593,51 @@
     </div>
   </div>
 
+  <footer class="site-footer">
+    <div class="footer-container">
+  
+      <!-- COLUNA 1: LOGO + TEXTO -->
+      <div class="footer-col footer-brand">
+        <img src="img/logo-320.webp" alt="Destrave sua Voz" class="footer-logo">
+        <p class="footer-description">
+          Transformando comunicação em presença, autoridade e resultados através da oratória.
+        </p>
+      </div>
+  
+      <!-- COLUNA 2: LINKS / SERVIÇOS -->
+      <div class="footer-col">
+        <h4>Nossos Serviços</h4>
+        <ul class="footer-links">
+          <li>Imersão em Oratória</li>
+          <li>Treinamentos Presenciais</li>
+          <li>Mentoria Individual</li>
+          <li>Consultoria de Comunicação</li>
+          <li>Diagnóstico Profissional</li>
+        </ul>
+      </div>
+  
+      <!-- COLUNA 3: CONTATO -->
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <ul class="footer-contact">
+          <li>📞 (31) 99965-5378</li>
+          <li>✉️ contato@destravesuavoz.com.br</li>
+          <li>📍 Belo Horizonte - MG</li>
+          <li>📷 @destravesuavoz</li>
+        </ul>
+      </div>
+  
+    </div>
+  
+    <!-- LINHA DIVISÓRIA -->
+    <div class="footer-divider"></div>
+  
+    <!-- DIREITOS -->
+    <div class="footer-bottom">
+      © 2025 Destrave sua Voz. Todos os direitos reservados.
+    </div>
+  </footer>
+
   <script src="script.js" defer></script>
 </body>
 </html>
-
