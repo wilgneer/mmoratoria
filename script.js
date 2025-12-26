@@ -41,7 +41,7 @@ document.addEventListener("keydown", (e) => {
 // ===============================
 
 // 1) Cole aqui a URL do seu Google Apps Script (Web App /exec)
-const GOOGLE_SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzmwQhQjAnhlzhhElSniDJIKG3RortswBJWIwGk5m66MEqvUp1XVkDF-Z9zybveyriM/exec";
+const GOOGLE_SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwIga8zMlbINKkOYH3rYfPUB_fZUdEZLhvH27s_SZ5ROyVUfu23wrvhd92jKEwiKTlU/exec";
 
 // 2) Link da Greenn (checkout)
 const GREENN_CHECKOUT_URL = "https://payfast.greenn.com.br/pre-checkout/149180";
