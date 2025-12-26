@@ -432,6 +432,65 @@ body {
   line-height: 1;
 }
 
+/* ============== MINI CARDS (CONTEÚDO) ============== */
+.section-topics{
+  padding: 70px 20px;
+  background: linear-gradient(180deg, #0b0b0b 0%, #070707 100%);
+}
+
+.mini-cards-grid{
+  margin-top: 26px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.mini-card{
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 14px;
+  border-radius: 14px;
+  background: rgb(0, 0, 0);
+  border: 1px solid rgb(0, 0, 0);
+  color: rgba(255,255,255,.9);
+  line-height: 1.35;
+  font-size: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+.mini-icon{
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255,161,0,.12);
+  border: 1px solid rgba(255,161,0,.35);
+  color: #ffa31a;
+  font-weight: 900;
+  transform: translateY(1px);
+}
+
+.mini-card:hover{
+  border-color: rgba(255,161,0,.28);
+  transform: translateY(-1px);
+  transition: .18s ease;
+}
+
+/* Responsivo */
+@media (max-width: 980px){
+  .mini-cards-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px){
+  .mini-cards-grid{ grid-template-columns: 1fr; }
+  .mini-card{ font-size: 14px; }
+}
+
+
+
 /* ================================================
    SOBRE O PROFESSOR — ESTILO PREMIUM
    ================================================ */
