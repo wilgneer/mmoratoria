@@ -20,7 +20,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- PERFORMANCE: pré-carrega a imagem LCP do Hero -->
-  <link rel="preload" as="image" href="img/monica.webp" type="image/webp" fetchpriority="high">
+  <link rel="preload" as="image" href="img/monica-720.webp"
+    imagesrcset="img/monica-480.webp 480w, img/monica-720.webp 720w, img/monica-960.webp 960w"
+    imagesizes="(max-width: 720px) 92vw, 520px" fetchpriority="high">
 
   <!-- Fonte -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -93,9 +95,13 @@
 
         <div class="hero-media">
           <picture>
-            <source media="(max-width: 720px)" srcset="img/monica.webp">
-            <img src="img/monica.webp" alt="Mônica Maciel conduzindo imersão de oratória" class="hero-img" width="720"
-              height="900" decoding="async" loading="eager" fetchpriority="high">
+            <source type="image/webp" srcset="
+                img/monica-480.webp 480w,
+                img/monica-720.webp 720w,
+                img/monica-960.webp 960w
+              " sizes="(max-width: 720px) 92vw, 520px">
+            <img src="img/monica-720.webp" alt="Mônica Maciel" class="hero-img" width="720" height="900" loading="eager"
+              decoding="async" fetchpriority="high">
           </picture>
         </div>
     </div>
