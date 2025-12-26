@@ -229,4 +229,61 @@ if (galleryTrack && galleryPrev && galleryNext) {
       behavior: "smooth",
     });
   });
+
+// ===============================
+// LITE YOUTUBE (carrega iframe só no clique)
+// ===============================
+function setupLiteYouTube() {
+  const nodes = document.querySelectorAll(".yt-lite[data-id]");
+  if (!nodes.length) return;
+
+  nodes.forEach((el) => {
+    const id = el.getAttribute("data-id");
+    const label = el.getAttribute("data-label") || "Depoimento";
+
+    // Thumb melhor. Se não existir maxres, o YouTube retorna 404; então usamos hqdefault por padrão.
+    const thumbHQ = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+    el.style.backgroundImage = `url("${thumbHQ}")`;
+
+    // UI (play + label)
+    el.innerHTML = `
+      <svg class="yt-play" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M8 5v14l11-7z"></path>
+      </svg>
+      <div class="yt-label">${label}</div>
+    `;
+
+    const activate = () => {
+      el.classList.add("is-playing");
+
+      const iframe = document.createElement("iframe");
+      iframe.allow =
+        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.allowFullscreen = true;
+      iframe.loading = "lazy";
+      iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+
+      iframe.style.position = "absolute";
+      iframe.style.inset = "0";
+      iframe.style.width = "100%";
+      iframe.style.height = "100%";
+      iframe.style.border = "0";
+
+      el.innerHTML = "";
+      el.appendChild(iframe);
+    };
+
+    el.addEventListener("click", activate, { passive: true });
+    el.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") activate();
+    });
+
+    el.setAttribute("role", "button");
+    el.setAttribute("tabindex", "0");
+    el.setAttribute("aria-label", `Reproduzir ${label}`);
+  });
+}
+
+setupLiteYouTube();
+
 }

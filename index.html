@@ -20,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- PERFORMANCE: pré-carrega a imagem LCP do Hero -->
-  <link rel="preload" as="image" href="img/monica.png" fetchpriority="high">
+  <link rel="preload" as="image" href="img/monica.webp" type="image/webp" fetchpriority="high">
 
   <!-- Fonte -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -90,31 +90,15 @@
       </div>
 
       <!-- COLUNA DIREITA: IMAGEM RESPONSIVA (LCP no mobile) -->
-      <div class="hero-media">
-        <!-- Desktop / Tablet (não é a LCP no mobile, pode ser mais leve) -->
-        <img
-          src="img/monica.webp"
-          alt="Mônica Maciel conduzindo imersão de oratória"
-          class="hero-img hero-img-desktop"
-          width="720"
-          height="900"
-          decoding="async"
-          loading="lazy"
-          fetchpriority="low"
-        >
 
-        <!-- Mobile (prioridade alta para melhorar LCP) -->
-        <img
-          src="img/monica.webp"
-          alt="Mônica Maciel conduindo imersão de oratória"
-          class="hero-img hero-img-mobile"
-          width="720"
-          height="900"
-          decoding="async"
-          loading="eager"
-          fetchpriority="high"
-        >
-      </div>
+        <div class="hero-media">
+          <picture>
+            <source media="(max-width: 720px)" srcset="img/monica.webp">
+            <source media="(min-width: 721px)" srcset="img/monica.webp">
+            <img src="img/monica.webp" alt="Mônica Maciel conduzindo imersão de oratória" class="hero-img" width="720"
+              height="900" decoding="async" loading="eager" fetchpriority="high">
+          </picture>
+        </div>
     </div>
   </header>
 
@@ -265,40 +249,19 @@
         <div class="testimonials-grid">
           <article class="testimonial-card">
             <div class="shorts-frame">
-              <iframe
-                src="https://www.youtube.com/embed/Pp1wgGiL9Oc"
-                title="Depoimento de aluno 1"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy">
-              </iframe>
+              <div class="yt-lite" data-id="Pp1wgGiL9Oc" data-label="Depoimento DF — Médico urologista"></div>
             </div>
           </article>
 
           <article class="testimonial-card">
             <div class="shorts-frame">
-              <iframe
-                src="https://www.youtube.com/embed/plAeZXDzyX4"
-                title="Depoimento de aluno 2"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy">
-              </iframe>
+              <div class="yt-lite" data-id="plAeZXDzyX4" data-label="Depoimento DF — Advogada"></div>
             </div>
           </article>
 
           <article class="testimonial-card">
             <div class="shorts-frame">
-              <iframe
-                src="https://www.youtube.com/embed/q24PMtKcyoA"
-                title="Depoimento de aluno 3"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy">
-              </iframe>
+              <div class="yt-lite" data-id="q24PMtKcyoA" data-label="Depoimento DF — Empresária"></div>
             </div>
           </article>
         </div>

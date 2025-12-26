@@ -735,6 +735,17 @@ body {
   border: 0;
 }
 
+.shorts-frame{
+  padding-top: 0 !important;
+  aspect-ratio: 9 / 16;
+}
+
+.shorts-frame .yt-lite{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
 
 
 
@@ -1266,6 +1277,138 @@ body {
   .location-map iframe {
     min-height: 300px;
   }
+}
+
+/* LITE YOUTUBE - Card Shorts (9:16) */
+.yt-lite{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #000 center / cover no-repeat;
+  cursor: pointer;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.45);
+  transform: translateZ(0);
+}
+
+.yt-lite::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.75) 90%);
+  pointer-events:none;
+}
+
+.yt-lite::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:68px;
+  height:68px;
+  border-radius:999px;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(6px);
+  pointer-events:none;
+}
+
+.yt-lite .yt-play{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:22px;
+  height:22px;
+  margin-left:2px;
+  pointer-events:none;
+  fill:#fff;
+  opacity:0.95;
+}
+
+.yt-lite .yt-label{
+  position:absolute;
+  left:14px;
+  right:14px;
+  bottom:12px;
+  z-index:2;
+  color:#fff;
+  font-weight:700;
+  font-size:14px;
+  line-height:1.2;
+  text-shadow: 0 10px 22px rgba(0,0,0,0.55);
+}
+
+/* Quando o vídeo estiver ativo */
+.yt-lite.is-playing::before,
+.yt-lite.is-playing::after,
+.yt-lite.is-playing .yt-play,
+.yt-lite.is-playing .yt-label {
+  display: none !important;
+}
+
+/* ============ PLAY (overlay) ============ */
+.yt-lite{
+  position: relative;
+}
+
+/* círculo do play */
+.yt-lite::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:74px;
+  height:74px;
+  border-radius:999px;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(6px);
+  z-index: 3;
+  pointer-events:none;
+}
+
+/* triângulo do play */
+.yt-lite::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:0;
+  height:0;
+  border-left:18px solid #fff;
+  border-top:12px solid transparent;
+  border-bottom:12px solid transparent;
+  margin-left:3px;
+  z-index: 4;
+  opacity: 0.95;
+  pointer-events:none;
+}
+
+/* hover suave */
+.yt-lite:hover::after{
+  transform: translate(-50%,-50%) scale(1.04);
+}
+
+/* pulse opcional (fica muito bom) */
+@media (prefers-reduced-motion: no-preference){
+  .yt-lite::after{
+    animation: ytPulse 1.8s ease-in-out infinite;
+  }
+  @keyframes ytPulse{
+    0%,100%{ box-shadow: 0 0 0 0 rgba(255,255,255,0.18); }
+    50%{ box-shadow: 0 0 0 14px rgba(255,255,255,0.00); }
+  }
+}
+
+/* quando estiver tocando, some tudo do overlay */
+.yt-lite.is-playing::before,
+.yt-lite.is-playing::after{
+  display:none !important;
 }
 
 /* =========================================================
