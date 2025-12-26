@@ -261,13 +261,6 @@ body {
   display: block;
 }
 
-.hero-img-desktop {
-  display: block;
-}
-
-.hero-img-mobile {
-  display: none;
-}
 
 /* Painel principal do hero (área de texto) */
 .hero-panel {
