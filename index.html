@@ -20,9 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- PERFORMANCE: pré-carrega a imagem LCP do Hero -->
-  <link rel="preload" as="image" href="img/monica-720.webp"
-    imagesrcset="img/monica-480.webp 480w, img/monica-720.webp 720w, img/monica-960.webp 960w"
-    imagesizes="(max-width: 720px) 92vw, 520px" fetchpriority="high">
+  <link rel="preload" as="image" href="img/monica.webp" type="image/webp" fetchpriority="high">
 
   <!-- Fonte -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,7 +49,8 @@
       <!-- COLUNA ESQUERDA: TEXTO -->
       <div class="hero-inner">
         <div class="hero-logo">
-          <img src="img/logo.webp" alt="Destrave sua Voz" width="420" height="120" decoding="async">
+          <img src="img/logo.webp" alt="Destrave sua Voz" class="site-logo" width="420" height="120" decoding="async"
+            fetchpriority="low">
           <div class="sound-waves" aria-hidden="true">
             <span></span><span></span><span></span><span></span><span></span>
           </div>
@@ -95,16 +94,12 @@
 
         <div class="hero-media">
           <picture>
-            <source type="image/webp" srcset="
-                img/monica-480.webp 480w,
-                img/monica-720.webp 720w,
-                img/monica-960.webp 960w
-              " sizes="(max-width: 720px) 92vw, 520px">
-            <img src="img/monica-720.webp" alt="Mônica Maciel" class="hero-img" width="720" height="900" loading="eager"
+            <source type="image/webp" srcset="img/monica.webp">
+            <img src="img/monica.webp" alt="Mônica Maciel" class="hero-img" width="720" height="900" loading="eager"
               decoding="async" fetchpriority="high">
           </picture>
         </div>
-    </div>
+        </div>
   </header>
 
   <main>
