@@ -93,46 +93,26 @@ if (leadForm) {
       formFeedback.classList.remove("error", "ok");
     }
 
-    // 1) Envia para Google Sheets (rápido / não bloqueia)
+    // ✅ envia (sendBeacon/fetch keepalive)
     sendToGoogleSheets(leadData);
 
-    // 2) Feedback + redirect Greenn (rápido)
     if (formFeedback) {
-      formFeedback.textContent = "Pronto! Redirecionando para o pagamento...";
+      formFeedback.textContent = "Recebido! Redirecionando...";
       formFeedback.classList.remove("error");
       formFeedback.classList.add("ok");
     }
 
-    // fecha modal (opcional) antes de redirecionar
-    // fecha o modal e mostra os planos
+    // ✅ fecha modal
+    closeModal();
+
+    // ✅ vai para obrigado (obrigado redireciona em 5s para o Green)
     setTimeout(() => {
-      closeModal();
-      mostrarPlanos();
-    }, 120);
-
-    // NÃO redireciona automaticamente
-    // (deixe o usuário escolher o plano)
-
-    // redireciona rápido para aumentar percepção de velocidade
-    //setTimeout(() => {
-      //window.location.href = GREENN_CHECKOUT_URL;
-    //}, 250);
-    
+      const url = `obrigado.html?to=${encodeURIComponent(GREENN_CHECKOUT_URL)}`;
+      window.location.href = url;
+    }, 150);
   });
-  const planosSection = document.getElementById("planos");
-
-  function mostrarPlanos() {
-    if (!planosSection) return;
-
-    planosSection.classList.remove("hidden");
-    planosSection.classList.add("show");
-
-    planosSection.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  }
 }
+
 
 // ===============================
 // ENVIAR PARA GOOGLE SHEETS (RÁPIDO)
@@ -142,37 +122,46 @@ if (leadForm) {
 function sendToGoogleSheets(data) {
   if (!GOOGLE_SHEETS_WEBAPP_URL || GOOGLE_SHEETS_WEBAPP_URL.includes("COLE_AQUI")) {
     console.warn("GOOGLE_SHEETS_WEBAPP_URL não configurada. Lead não foi enviado ao Sheets.");
-    return;
+    return false;
   }
 
   try {
     const payload = JSON.stringify(data);
 
-    // Melhor opção quando vai ocorrer navegação/redirect
     if (navigator.sendBeacon) {
       const blob = new Blob([payload], { type: "text/plain;charset=utf-8" });
       const ok = navigator.sendBeacon(GOOGLE_SHEETS_WEBAPP_URL, blob);
-      if (ok) {
-        console.log("Lead enviado para Google Sheets (sendBeacon).");
-        return;
-      }
-      console.warn("sendBeacon falhou. Tentando fetch como fallback...");
+      if (ok) return true;
     }
 
-    // Fallback
     fetch(GOOGLE_SHEETS_WEBAPP_URL, {
       method: "POST",
       mode: "no-cors",
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8",
-      },
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: payload,
       keepalive: true,
     }).catch(() => {});
+
+    return true;
   } catch (err) {
     console.error("Erro ao enviar para Sheets:", err);
+    return false;
   }
 }
+
+// Abre a página de obrigado em nova aba ao clicar em qualquer botão de Lead
+document.querySelectorAll('[data-open-modal]').forEach((btn) => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    // Se você ainda quer abrir o modal, comente a linha de baixo.
+    // Se a mudança de fluxo é TOTAL (sem modal), mantenha como está.
+    openModal();
+
+    // Se você quer impedir o modal de abrir, garanta que seu código do modal
+    // não execute quando esse fluxo estiver ativo.
+  });
+});
 
 // ==========================
 // FAQ (accordion otimizado)
