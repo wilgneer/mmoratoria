@@ -323,4 +323,22 @@ if ("serviceWorker" in navigator) {
   });
 }
 
+// ===============================
+// MOSTRAR PLANOS (on-demand)
+// ===============================
+const btnVerPlanos = document.getElementById("btnVerPlanos");
+const sectionPlanos = document.getElementById("planos");
+
+if (btnVerPlanos && sectionPlanos) {
+  btnVerPlanos.addEventListener("click", () => {
+    // Mostra a seção (remove hidden e ativa animação)
+    sectionPlanos.classList.remove("hidden");
+    sectionPlanos.classList.add("show");
+
+    // Desce até os planos
+    sectionPlanos.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 }
+
+}
+
