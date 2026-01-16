@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Obrigado pelo interesse — Destrave sua Voz</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    body{
+      margin:0;
+      font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 50% 10%, rgba(255,161,0,.18), transparent 60%),
+                  linear-gradient(180deg, #0b0b0b 0%, #060606 100%);
+      color:#fff;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:20px;
+    }
+    .wrap{
+      width:min(760px, 100%);
+      border-radius: 22px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      padding: 34px 26px;
+      text-align:center;
+    }
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(26px, 4vw, 40px);
+      letter-spacing:-.02em;
+    }
+    p{
+      margin:0 auto 18px;
+      max-width: 620px;
+      color: rgba(255,255,255,.82);
+      line-height:1.6;
+      font-size: 15px;
+    }
+    .counter{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      margin-top:10px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: rgba(255,161,0,.10);
+      border: 1px solid rgba(255,161,0,.28);
+      color: #ffd59a;
+      font-weight: 700;
+    }
+    .num{
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display:inline-grid;
+      place-items:center;
+      background: rgba(255,161,0,.18);
+      border: 1px solid rgba(255,161,0,.35);
+      color: #ffa31a;
+      font-size: 16px;
+    }
+    .link{
+      display:inline-block;
+      margin-top: 18px;
+      color: rgba(255,255,255,.75);
+      font-size: 13px;
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(255,255,255,.25);
+      padding-bottom:2px;
+    }
+    .link:hover{ color:#fff; border-bottom-color: rgba(255,255,255,.5); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Obrigado pelo seu interesse.</h1>
+    <p>
+      Seus dados foram enviados com sucesso. Em instantes vamos te levar para a página de inscrição da imersão.
+    </p>
+
+    <div class="counter" role="status" aria-live="polite">
+      Levando você à imersão em <span class="num" id="count">5</span> segundos…
+    </div>
+
+    <a class="link" id="skipLink" href="#" rel="noopener">Se não redirecionar, clique aqui</a>
+  </div>
+
+  <script>
+    // Pega o destino vindo do script.js: obrigado.html?to=...
+    const params = new URLSearchParams(window.location.search);
+    const to = params.get("to");
+
+    // Se alguém abrir sem parâmetro, você pode colocar um fallback:
+    const FALLBACK_GREEN = "COLE_AQUI_SEU_LINK_DO_GREEN";
+
+    const GREEN_URL = (to && to.startsWith("http")) ? to : FALLBACK_GREEN;
+
+    const skipLink = document.getElementById("skipLink");
+    skipLink.href = GREEN_URL;
+
+    let n = 3;
+    const el = document.getElementById("count");
+    el.textContent = n;
+
+    const timer = setInterval(() => {
+      n--;
+      el.textContent = n;
+      if (n <= 0) {
+        clearInterval(timer);
+        window.location.href = GREEN_URL;
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
+
