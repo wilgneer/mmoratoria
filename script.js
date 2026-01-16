@@ -44,7 +44,7 @@ document.addEventListener("keydown", (e) => {
 const GOOGLE_SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwIga8zMlbINKkOYH3rYfPUB_fZUdEZLhvH27s_SZ5ROyVUfu23wrvhd92jKEwiKTlU/exec";
 
 // 2) Link da Greenn (checkout)
-const GREENN_CHECKOUT_URL = "https://payfast.greenn.com.br/pre-checkout/149180";
+const GREENN_CHECKOUT_URL = "https://payfast.greenn.com.br/pre-checkout/154259";
 
 // ===============================
 // FORMULÁRIO / INTEGRAÇÃO
