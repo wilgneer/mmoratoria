@@ -296,9 +296,9 @@ setupLiteYouTube();
 
 // === Links da Greenn por plano (troque pelas URLs reais) ===
 const GREENN_URLS = {
-  prata: "https://payfast.greenn.com.br/pre-checkout/149180",
-  ouro: "https://payfast.greenn.com.br/pre-checkout/149180",
-  diamante: "https://payfast.greenn.com.br/pre-checkout/149180",
+  prata: "https://payfast.greenn.com.br/154259?batch=11754_bj0FFZ",
+  ouro: "https://payfast.greenn.com.br/154259?batch=11755_YgnOik",
+  diamante: "https://payfast.greenn.com.br/154259?batch=11757_XgQtVf",
 };
 
 // clique nos botões de plano -> redireciona para a Greenn
@@ -341,4 +341,5 @@ if (btnVerPlanos && sectionPlanos) {
 }
 
 }
+
 
