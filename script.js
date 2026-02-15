@@ -1,345 +1,358 @@
-// ===============================
-// MODAL (Abrir / Fechar)
-// ===============================
-const modalOverlay = document.getElementById("leadModal");
-const modalClose = document.getElementById("modalClose");
-const openModalButtons = document.querySelectorAll("[data-open-modal]");
+// ============================================================
+// IMAGEM DE ALTO VALOR - LANDING PAGE SCRIPT
+// Interatividade e animações
+// ============================================================
 
-function openModal() {
-  if (!modalOverlay) return;
-  modalOverlay.classList.add("is-open");
-}
+(function() {
+  'use strict';
 
-function closeModal() {
-  if (!modalOverlay) return;
-  modalOverlay.classList.remove("is-open");
-}
+  // ==================== MODAL ====================
+  const modal = document.getElementById('leadModal');
+  const modalBtns = document.querySelectorAll('[data-open-modal]');
+  const modalClose = document.getElementById('modalClose');
+  const leadForm = document.getElementById('leadForm');
+  const formFeedback = document.getElementById('formFeedback');
 
-// abre modal em todos os CTAs com data-open-modal
-openModalButtons.forEach((btn) => {
-  btn.addEventListener("click", openModal);
-});
-
-if (modalClose) modalClose.addEventListener("click", closeModal);
-
-// fechar clicando fora do modal
-if (modalOverlay) {
-  modalOverlay.addEventListener("click", (e) => {
-    if (e.target === modalOverlay) closeModal();
+  // Abrir modal
+  modalBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
   });
-}
 
-// fechar com ESC
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && modalOverlay && modalOverlay.classList.contains("is-open")) {
-    closeModal();
-  }
-});
+  // Fechar modal
+  const closeModal = () => {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  };
 
-// ===============================
-// CONFIG (Sheets + Greenn)
-// ===============================
+  modalClose.addEventListener('click', closeModal);
 
-// 1) Cole aqui a URL do seu Google Apps Script (Web App /exec)
-const GOOGLE_SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwIga8zMlbINKkOYH3rYfPUB_fZUdEZLhvH27s_SZ5ROyVUfu23wrvhd92jKEwiKTlU/exec";
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
 
-// 2) Link da Greenn (checkout)
-const GREENN_CHECKOUT_URL = "https://payfast.greenn.com.br/pre-checkout/154259";
+  // Fechar com ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
 
-// ===============================
-// FORMULÁRIO / INTEGRAÇÃO
-// ===============================
-const leadForm = document.getElementById("leadForm");
-const formFeedback = document.getElementById("formFeedback");
-
-if (leadForm) {
-  leadForm.addEventListener("submit", (e) => {
+  // ==================== FORMULÁRIO ====================
+  leadForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const nome = leadForm.nome?.value.trim() || "";
-    const email = leadForm.email?.value.trim() || "";
-    const profissao = leadForm.profissao?.value.trim() || "";
-    const whatsapp = leadForm.whatsapp?.value.trim() || "";
+    const formData = {
+      nome: document.getElementById('nome').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      profissao: document.getElementById('profissao').value.trim(),
+      whatsapp: document.getElementById('whatsapp').value.trim(),
+      timestamp: new Date().toISOString(),
+      pagina: 'Imagem de Alto Valor'
+    };
 
-    // validação simples
-    if (!nome || !email || !profissao || !whatsapp) {
-      if (formFeedback) {
-        formFeedback.textContent = "Preencha todos os campos obrigatórios.";
-        formFeedback.classList.remove("ok");
-        formFeedback.classList.add("error");
-      }
+    // Validação básica
+    if (!formData.nome || !formData.email || !formData.profissao || !formData.whatsapp) {
+      showFeedback('Por favor, preencha todos os campos obrigatórios.', 'error');
       return;
     }
 
-    const leadData = {
-      nome,
-      email,
-      profissao,
-      whatsapp,
-      origem: "LP Destrave Sua Voz",
-      datahora: new Date().toISOString(),
+    // Validação de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      showFeedback('Por favor, insira um e-mail válido.', 'error');
+      return;
+    }
+
+    try {
+      // Aqui você conectaria com seu backend
+      // Exemplo: await fetch('/api/leads', { method: 'POST', body: JSON.stringify(formData) })
+      
+      // Simulação de sucesso
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      showFeedback('Dados enviados com sucesso! Você receberá todas as informações em breve.', 'success');
+      
+      // Redirecionar para WhatsApp após 2 segundos
+      setTimeout(() => {
+        const mensagem = encodeURIComponent(
+          `Olá! Me chamo ${formData.nome} e acabei de me inscrever na Imersão de Imagem de Alto Valor. Gostaria de receber mais informações.`
+        );
+        window.open(`https://wa.me/5531999999999?text=${mensagem}`, '_blank');
+        leadForm.reset();
+        closeModal();
+      }, 2000);
+
+    } catch (error) {
+      showFeedback('Erro ao enviar dados. Tente novamente.', 'error');
+      console.error('Erro:', error);
+    }
+  });
+
+  function showFeedback(message, type) {
+    formFeedback.textContent = message;
+    formFeedback.className = `form-feedback ${type}`;
+    
+    if (type === 'error') {
+      setTimeout(() => {
+        formFeedback.style.display = 'none';
+      }, 5000);
+    }
+  }
+
+  // ==================== FAQ ====================
+  const faqQuestions = document.querySelectorAll('.faq-question');
+
+  faqQuestions.forEach(question => {
+    question.addEventListener('click', () => {
+      const faqItem = question.closest('.faq-item');
+      const answer = faqItem.querySelector('.faq-answer');
+      const isExpanded = question.getAttribute('aria-expanded') === 'true';
+
+      // Fechar todas as outras
+      faqQuestions.forEach(q => {
+        if (q !== question) {
+          q.setAttribute('aria-expanded', 'false');
+          q.closest('.faq-item').querySelector('.faq-answer').style.maxHeight = '0';
+        }
+      });
+
+      // Toggle atual
+      if (isExpanded) {
+        question.setAttribute('aria-expanded', 'false');
+        answer.style.maxHeight = '0';
+      } else {
+        question.setAttribute('aria-expanded', 'true');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ==================== GALERIA ====================
+  const track = document.getElementById('galleryTrack');
+  const prevBtn = document.getElementById('galleryPrev');
+  const nextBtn = document.getElementById('galleryNext');
+
+  if (track && prevBtn && nextBtn) {
+    let currentIndex = 0;
+    const items = track.querySelectorAll('.gallery-item');
+    const totalItems = items.length;
+
+    const updateGallery = () => {
+      const itemWidth = items[0].offsetWidth;
+      const gap = 16; // 1rem em pixels
+      const offset = currentIndex * (itemWidth + gap);
+      track.scrollTo({
+        left: offset,
+        behavior: 'smooth'
+      });
     };
 
-    // trava botão para evitar duplo clique
-    const submitBtn = leadForm.querySelector('button[type="submit"]');
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.style.opacity = "0.75";
-      submitBtn.style.cursor = "not-allowed";
-    }
+    prevBtn.addEventListener('click', () => {
+      currentIndex = Math.max(0, currentIndex - 1);
+      updateGallery();
+    });
 
-    if (formFeedback) {
-      formFeedback.textContent = "Enviando...";
-      formFeedback.classList.remove("error", "ok");
-    }
+    nextBtn.addEventListener('click', () => {
+      const maxIndex = totalItems - Math.floor(track.offsetWidth / items[0].offsetWidth);
+      currentIndex = Math.min(maxIndex, currentIndex + 1);
+      updateGallery();
+    });
 
-    // ✅ envia (sendBeacon/fetch keepalive)
-    sendToGoogleSheets(leadData);
+    // Autoplay opcional
+    let autoplayInterval;
+    const startAutoplay = () => {
+      autoplayInterval = setInterval(() => {
+        const maxIndex = totalItems - Math.floor(track.offsetWidth / items[0].offsetWidth);
+        currentIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
+        updateGallery();
+      }, 5000);
+    };
 
-    if (formFeedback) {
-      formFeedback.textContent = "Recebido! Redirecionando...";
-      formFeedback.classList.remove("error");
-      formFeedback.classList.add("ok");
-    }
+    const stopAutoplay = () => {
+      clearInterval(autoplayInterval);
+    };
 
-    // ✅ fecha modal
-    closeModal();
+    // Iniciar autoplay
+    startAutoplay();
 
-    // ✅ vai para obrigado (obrigado redireciona em 5s para o Green)
-    setTimeout(() => {
-      const url = `obrigado.html?to=${encodeURIComponent(GREENN_CHECKOUT_URL)}`;
-      window.location.href = url;
-    }, 150);
-  });
-}
-
-
-// ===============================
-// ENVIAR PARA GOOGLE SHEETS (RÁPIDO)
-// - sendBeacon (melhor para redirect)
-// - fallback fetch no-cors + keepalive
-// ===============================
-function sendToGoogleSheets(data) {
-  if (!GOOGLE_SHEETS_WEBAPP_URL || GOOGLE_SHEETS_WEBAPP_URL.includes("COLE_AQUI")) {
-    console.warn("GOOGLE_SHEETS_WEBAPP_URL não configurada. Lead não foi enviado ao Sheets.");
-    return false;
+    // Pausar ao interagir
+    track.addEventListener('mouseenter', stopAutoplay);
+    track.addEventListener('mouseleave', startAutoplay);
+    prevBtn.addEventListener('click', stopAutoplay);
+    nextBtn.addEventListener('click', stopAutoplay);
   }
 
-  try {
-    const payload = JSON.stringify(data);
+  // ==================== SCROLL REVEAL ====================
+  const revealElements = document.querySelectorAll('[data-reveal]');
 
-    if (navigator.sendBeacon) {
-      const blob = new Blob([payload], { type: "text/plain;charset=utf-8" });
-      const ok = navigator.sendBeacon(GOOGLE_SHEETS_WEBAPP_URL, blob);
-      if (ok) return true;
-    }
+  const revealOnScroll = () => {
+    const windowHeight = window.innerHeight;
+    
+    revealElements.forEach(element => {
+      const elementTop = element.getBoundingClientRect().top;
+      const revealPoint = windowHeight * 0.85;
+      
+      if (elementTop < revealPoint) {
+        element.classList.add('revealed');
+      }
+    });
+  };
 
-    fetch(GOOGLE_SHEETS_WEBAPP_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: payload,
-      keepalive: true,
-    }).catch(() => {});
+  // Executar na carga e no scroll
+  window.addEventListener('scroll', revealOnScroll);
+  window.addEventListener('load', revealOnScroll);
+  revealOnScroll(); // Executar imediatamente
 
-    return true;
-  } catch (err) {
-    console.error("Erro ao enviar para Sheets:", err);
-    return false;
-  }
-}
+  // ==================== HEADER SCROLL ====================
+  const header = document.querySelector('.site-header');
+  let lastScroll = 0;
 
-// Abre a página de obrigado em nova aba ao clicar em qualquer botão de Lead
-document.querySelectorAll('[data-open-modal]').forEach((btn) => {
-  btn.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    // Se você ainda quer abrir o modal, comente a linha de baixo.
-    // Se a mudança de fluxo é TOTAL (sem modal), mantenha como está.
-    openModal();
-
-    // Se você quer impedir o modal de abrir, garanta que seu código do modal
-    // não execute quando esse fluxo estiver ativo.
-  });
-});
-
-// ==========================
-// FAQ (accordion otimizado)
-// - Um único listener
-// - Altura real via scrollHeight (anima suave)
-// ==========================
-const faqList = document.querySelector(".faq-list");
-
-if (faqList) {
-  faqList.addEventListener("click", (e) => {
-    const btn = e.target.closest(".faq-question");
-    if (!btn) return;
-
-    const item = btn.closest(".faq-item");
-    if (!item) return;
-
-    const answer = item.querySelector(".faq-answer");
-    const icon = item.querySelector(".faq-icon");
-    const isOpen = item.classList.contains("is-open");
-
-    // Fecha o que estiver aberto (apenas 1)
-    const openItem = faqList.querySelector(".faq-item.is-open");
-    if (openItem && openItem !== item) {
-      const openBtn = openItem.querySelector(".faq-question");
-      const openAnswer = openItem.querySelector(".faq-answer");
-      const openIcon = openItem.querySelector(".faq-icon");
-
-      openItem.classList.remove("is-open");
-      if (openBtn) openBtn.setAttribute("aria-expanded", "false");
-      if (openIcon) openIcon.textContent = "+";
-      if (openAnswer) openAnswer.style.height = "0px";
-    }
-
-    // Alterna o clicado
-    if (isOpen) {
-      item.classList.remove("is-open");
-      btn.setAttribute("aria-expanded", "false");
-      if (icon) icon.textContent = "+";
-      if (answer) answer.style.height = "0px";
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll > 100) {
+      header.classList.add('scrolled');
     } else {
-      item.classList.add("is-open");
-      btn.setAttribute("aria-expanded", "true");
-      if (icon) icon.textContent = "−";
-      if (answer) answer.style.height = answer.scrollHeight + "px";
+      header.classList.remove('scrolled');
     }
+    
+    lastScroll = currentScroll;
   });
 
-  // Ajusta altura quando a tela muda
-  window.addEventListener("resize", () => {
-    const openAnswer = document.querySelector(".faq-item.is-open .faq-answer");
-    if (openAnswer) openAnswer.style.height = openAnswer.scrollHeight + "px";
-  });
-}
-
-// ===============================
-// CARRETEL / GALERIA
-// ===============================
-const galleryTrack = document.getElementById("galleryTrack");
-const galleryPrev = document.getElementById("galleryPrev");
-const galleryNext = document.getElementById("galleryNext");
-
-if (galleryTrack && galleryPrev && galleryNext) {
-  galleryPrev.addEventListener("click", () => {
-    galleryTrack.scrollBy({
-      left: -galleryTrack.clientWidth,
-      behavior: "smooth",
+  // ==================== SMOOTH SCROLL ====================
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      
+      if (href === '#' || href === '#topo') {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        const headerHeight = header.offsetHeight;
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
     });
   });
 
-  galleryNext.addEventListener("click", () => {
-    galleryTrack.scrollBy({
-      left: galleryTrack.clientWidth,
-      behavior: "smooth",
-    });
-  });
+// GALLERY — autoplay (sem limitar imagem)
+(function initGalleryAutoplay(){
+  const track = document.getElementById("galleryTrack");
+  const prevBtn = document.getElementById("galleryPrev");
+  const nextBtn = document.getElementById("galleryNext");
+  if (!track || !prevBtn || !nextBtn) return;
 
-// ===============================
-// LITE YOUTUBE (carrega iframe só no clique)
-// ===============================
-function setupLiteYouTube() {
-  const nodes = document.querySelectorAll(".yt-lite[data-id]");
-  if (!nodes.length) return;
+  const items = Array.from(track.querySelectorAll(".gallery-item"));
+  if (!items.length) return;
 
-  nodes.forEach((el) => {
-    const id = el.getAttribute("data-id");
-    const label = el.getAttribute("data-label") || "Depoimento";
+  let index = 0;
+  let timer = null;
+  const INTERVAL = 3800;
 
-    // Thumb melhor. Se não existir maxres, o YouTube retorna 404; então usamos hqdefault por padrão.
-    const thumbHQ = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
-    el.style.backgroundImage = `url("${thumbHQ}")`;
-
-    // UI (play + label)
-    el.innerHTML = `
-      <svg class="yt-play" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M8 5v14l11-7z"></path>
-      </svg>
-      <div class="yt-label">${label}</div>
-    `;
-
-    const activate = () => {
-      el.classList.add("is-playing");
-
-      const iframe = document.createElement("iframe");
-      iframe.allow =
-        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-      iframe.allowFullscreen = true;
-      iframe.loading = "lazy";
-      iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
-
-      iframe.style.position = "absolute";
-      iframe.style.inset = "0";
-      iframe.style.width = "100%";
-      iframe.style.height = "100%";
-      iframe.style.border = "0";
-
-      el.innerHTML = "";
-      el.appendChild(iframe);
-    };
-
-    el.addEventListener("click", activate, { passive: true });
-    el.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") activate();
-    });
-
-    el.setAttribute("role", "button");
-    el.setAttribute("tabindex", "0");
-    el.setAttribute("aria-label", `Reproduzir ${label}`);
-  });
-}
-
-setupLiteYouTube();
-
-// === Links da Greenn por plano (troque pelas URLs reais) ===
-const GREENN_URLS = {
-  prata: "https://payfast.greenn.com.br/154259?batch=11754_bj0FFZ",
-  ouro: "https://payfast.greenn.com.br/154259?batch=11755_YgnOik",
-  diamante: "https://payfast.greenn.com.br/154259?batch=11757_XgQtVf",
-};
-
-// clique nos botões de plano -> redireciona para a Greenn
-document.addEventListener("click", (e) => {
-  const btn = e.target.closest(".plan-btn");
-  if (!btn) return;
-
-  const plan = btn.getAttribute("data-plan");
-  const url = GREENN_URLS[plan];
-
-  if (!url || url.includes("SEU-LINK-GREENN")) {
-    alert("Link do checkout ainda não configurado para este plano.");
-    return;
+  function getStep(){
+    // largura real do slide (considera gap)
+    const first = items[0];
+    const gap = parseFloat(getComputedStyle(track).gap || "0");
+    return first.getBoundingClientRect().width + gap;
   }
 
-  window.location.href = url;
-});
+  function goTo(i){
+    index = (i + items.length) % items.length;
+    track.scrollTo({ left: getStep() * index, behavior: "smooth" });
+  }
 
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/sw.js");
-  });
-}
+  function next(){ goTo(index + 1); }
+  function prev(){ goTo(index - 1); }
 
-// ===============================
-// MOSTRAR PLANOS (on-demand)
-// ===============================
-const btnVerPlanos = document.getElementById("btnVerPlanos");
-const sectionPlanos = document.getElementById("planos");
+  function start(){
+    stop();
+    timer = setInterval(() => next(), INTERVAL);
+  }
 
-if (btnVerPlanos && sectionPlanos) {
-  btnVerPlanos.addEventListener("click", () => {
-    // Mostra a seção (remove hidden e ativa animação)
-    sectionPlanos.classList.remove("hidden");
-    sectionPlanos.classList.add("show");
+  function stop(){
+    if (timer) clearInterval(timer);
+    timer = null;
+  }
 
-    // Desce até os planos
-    sectionPlanos.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-}
+  // Botões
+  nextBtn.addEventListener("click", () => { stop(); next(); start(); });
+  prevBtn.addEventListener("click", () => { stop(); prev(); start(); });
 
-}
+  // Sincroniza index quando usuário arrasta manualmente
+  let raf = null;
+  track.addEventListener("scroll", () => {
+    if (raf) cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      const step = getStep();
+      const current = Math.round(track.scrollLeft / step);
+      index = Math.max(0, Math.min(items.length - 1, current));
+    });
+  }, { passive: true });
+
+  // Pausa em interação (mobile + desktop)
+  ["mouseenter","touchstart","pointerdown"].forEach(evt =>
+    track.addEventListener(evt, stop, { passive: true })
+  );
+  ["mouseleave","touchend","pointerup"].forEach(evt =>
+    track.addEventListener(evt, start, { passive: true })
+  );
+
+  // Recalcula em resize (mudou largura do slide)
+  window.addEventListener("resize", () => goTo(index));
+
+  // Start
+  start();
+})();
 
 
+  // ==================== MÁSCARAS DE INPUT ====================
+  const whatsappInput = document.getElementById('whatsapp');
+  
+  if (whatsappInput) {
+    whatsappInput.addEventListener('input', (e) => {
+      let value = e.target.value.replace(/\D/g, '');
+      
+      if (value.length > 0) {
+        if (value.length <= 2) {
+          value = `(${value}`;
+        } else if (value.length <= 7) {
+          value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+        } else if (value.length <= 11) {
+          value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+        } else {
+          value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7, 11)}`;
+        }
+      }
+      
+      e.target.value = value;
+    });
+  }
+
+  // ==================== ANIMAÇÃO DO HERO ====================
+  const heroContent = document.querySelector('.hero-content');
+  if (heroContent) {
+    setTimeout(() => {
+      heroContent.style.opacity = '1';
+      heroContent.style.transform = 'translateY(0)';
+    }, 300);
+  }
+
+  // ==================== CONSOLE LOG ====================
+  console.log('%c✦ Imagem de Alto Valor ✦', 'color: #D4AF37; font-size: 20px; font-weight: bold;');
+  console.log('%cLanding Page carregada com sucesso!', 'color: #F5F1E8; font-size: 12px;');
+
+})();
