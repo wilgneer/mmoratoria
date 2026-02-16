@@ -6,7 +6,7 @@
   --text-secondary: #dddddd;
   --accent: #ff9a1f;
   --accent-strong: #ff7a00;
-  --accent-green: #fc8f00;
+  --accent-green: #00ff7f;
   --plan-prata: linear-gradient(180deg, #f1f1f1, #b4b4b4);
   --plan-ouro: linear-gradient(180deg, #ffeb99, #ffb31f);
   --plan-diamante: linear-gradient(180deg, #00f5ff, #0066ff);
@@ -121,7 +121,7 @@ body {
   justify-content: center;
   padding: 10px 24px;
   border-radius: 999px;
-  border: 1px solid rgb(255, 136, 0);
+  border: 1px solid rgba(30, 255, 0, 0.35);
   background: transparent;
   color: var(--text-primary);
   font-size: 0.9rem;
@@ -1385,25 +1385,6 @@ body {
   color: #ff4d4d;
 }
 
-/* Campo fechado (no modal) */
-.form-group-full select{
-  width: 100%;
-  background: #111111;          /* fundo escuro do modal */
-  color: #FFFFFF;               /* texto branco */
-  border: 1px solid rgba(255,154,31,.6);
-  border-radius: 12px;
-  padding: 12px 14px;
-  font-size: 14px;
-  outline: none;
-  appearance: auto; /* importante para manter dropdown nativo */
-}
-
-/* Opções quando abrir */
-.form-group-full select option{
-  background: #FFFFFF;          /* fundo branco da lista */
-  color: #000000;               /* texto preto */
-}
-
 /* =========================================================
    PATCH – CTA PROVA SOCIAL + EXPERIÊNCIAS (6 QUADRADOS)
    Cole este bloco no FINAL do styles.css
@@ -1988,34 +1969,3 @@ body {
 
 /* quando só os botões aparecem, dá um respiro menor */
 .plans-city-toggle{ margin: 2px 0 10px; }
-
-
-
-/* ===== Pill da data (22/03) - formato perfeito ===== */
-.hero-badge-pill{
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-
-  width: 58px !important;     /* largura fixa */
-  height: 34px !important;    /* altura fixa */
-  padding: 0 !important;      /* evita deformar */
-  border-radius: 999px !important;
-
-  background: linear-gradient(135deg, #FF9A1F, #FF7A00) !important;
-  color: #111 !important;
-  font-weight: 800 !important;
-  font-size: 13px !important;
-  line-height: 1 !important;
-  letter-spacing: .2px !important;
-
-  flex: 0 0 auto !important;  /* não estica */
-}
-
-@media (max-width: 480px){
-  .hero-badge-pill{
-    width: 54px !important;
-    height: 32px !important;
-    font-size: 12.5px !important;
-  }
-}

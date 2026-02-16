@@ -81,19 +81,33 @@
         </p>
 
         <div class="hero-bottom-row">
+
           <div class="hero-badge-wrapper">
-            <span class="hero-badge-label">Próxima turma</span>
-            <div class="hero-badge">
-              <span class="hero-badge-pill">22/03</span>
-              <span>Imersão presencial em Belo Horizonte</span>
+            <span class="hero-badge-label">Próximas turmas</span>
+
+            <div class="hero-badge hero-badge-stack">
+              <div class="hero-badge-row">
+                <span class="hero-badge-pill">22/03</span>
+                <span>Imersão presencial em Belo Horizonte</span>
+              </div>
+
+              <div class="hero-badge-row">
+                <span class="hero-badge-pill">14/03</span>
+                <span>Imersão presencial em Brasília</span>
+              </div>
             </div>
           </div>
 
           <div class="hero-cta-wrapper">
-            <button class="btn-primary hero-cta" data-open-modal>
+            <button class="btn-primary hero-cta" data-open-modal="cta">
               <span>Quero dominar a oratória</span>
               <span class="arrow">→</span>
             </button>
+
+            <button class="btn-secondary hero-cta-secondary" type="button" id="btnVerPlanosHero">
+              Ver planos
+            </button>
+
             <p class="hero-trust">Vagas limitadas já garanta aqui!</p>
           </div>
         </div>
@@ -317,9 +331,21 @@
     </div>
 
     <!-- PLANOS ============================================== -->
-    <section class="section section-plans hidden" id="planos">
+    <section class="section section-plans hidden" id="planos" data-city="bh">
       <div class="container">
-        <h2 class="section-title">
+        <div class="plans-city-toggle" role="tablist" aria-label="Escolha a cidade">
+  <button class="city-pill is-active" type="button" role="tab" aria-selected="true" data-plans-city="bh">
+    <img src="img/card-bh.webp" alt="Belo Horizonte" width="475" height="247" decoding="async" loading="lazy">
+  </button>
+
+  <button class="city-pill" type="button" role="tab" aria-selected="false" data-plans-city="bsb">
+    <img src="img/card-br.webp" alt="Brasília" width="475" height="247" decoding="async" loading="lazy">
+  </button>
+</div>
+
+        <div class="plans-content is-hidden" id="plansContent">
+
+<h2 class="section-title">
           Escolha o plano ideal para <span>destravar sua voz</span>
         </h2>
         <p class="section-subtitle">
@@ -328,51 +354,94 @@
         </p>
 
         <div class="plans-grid">
+
           <article class="plan-card plan-prata">
             <h3>Silver</h3>
             <p class="plan-label">Para quem quer dar o primeiro passo</p>
             <ul class="plan-list">
-              <li>. Acesso ao evento</li>
-              <li>. Certificado<br><br></li>
+              <li>Acesso ao evento</li>
+              <li>Certificado</li>
             </ul>
             <p class="plan-price">R$ 147,00</p>
             <p class="plan-subprice">ou 12x de R$ 15,11</p>
-            <button class="btn-primary plan-btn" data-plan="prata">
-              Quero o plano Prata
-            </button>
+
+            
+<button class="btn-primary plan-buy-btn" type="button"
+  data-open-modal="plan"
+  data-plan="silver"
+  data-checkout-bh="https://payfast.greenn.com.br/154259?batch=11754_bj0FFZ"
+  data-checkout-bsb="https://payfast.greenn.com.br/158548?batch=12468_96UOkC">
+  Comprar →
+</button>
+          </article>
+
+          <article class="plan-card plan-vip">
+            <h3>VIP Único</h3>
+            <p class="plan-label">Para quem quer uma experiência mais completa</p>
+            <ul class="plan-list">
+              <li>Acesso ao evento</li>
+              <li>Material impresso</li>
+              <li>Coffee break</li>
+              <li>Certificado</li>
+            </ul>
+            <p class="plan-price">R$ 208,00</p>
+            <p class="plan-subprice">ou 12x de R$ 21,39</p>
+
+            
+<button class="btn-primary plan-buy-btn" type="button"
+  data-open-modal="plan"
+  data-plan="vip_unico"
+  data-checkout-bh="https://payfast.greenn.com.br/154259?batch=12196_lTVpal"
+  data-checkout-bsb="https://payfast.greenn.com.br/158548?batch=12469_l5ioA5">
+  Comprar →
+</button>
           </article>
 
           <article class="plan-card plan-ouro destaque">
             <div class="plan-tag">Mais escolhido</div>
             <h3>VIP Duplo</h3>
-            <p class="plan-gold">Ideal para quem quer levar uma pessoal especial</p>
+            <p class="plan-gold">Ideal para quem quer levar uma pessoa especial</p>
             <ul class="plan-list-gold">
-              <li>2 Pessoas, incluso:</li>
-              <li>. Material Impresso</li>
-              <li>. Café</li>
-              <li>. Aula Bônus</li>
-              <li>. Certificado</li>
+              <ul class="plan-list">
+                <li>2 Pessoas, incluso:</li>
+                <li>Material Impresso</li>
+                <li>Café</li>
+                <li>Aula Bônus</li>
+                <li>Certificado</li>
+              </ul>
             </ul>
             <p class="plan-price">R$ 328,00</p>
             <p class="plan-subprice-gold">ou 12x de R$ 33,72</p>
-            <button class="btn-primary plan-btn" data-plan="ouro">
-              Quero o plano Ouro
-            </button>
+
+            
+<button class="btn-primary plan-buy-btn" type="button"
+  data-open-modal="plan"
+  data-plan="vip_duplo"
+  data-checkout-bh="https://payfast.greenn.com.br/154259?batch=11755_YgnOik"
+  data-checkout-bsb="https://payfast.greenn.com.br/158548?batch=12470_tbybJj">
+  Comprar →
+</button>
           </article>
 
           <article class="plan-card plan-diamante">
             <h3>Black</h3>
             <p class="plan-label">Para quem quer performance máxima</p>
             <ul class="plan-list">
-              <li>. Tudo do Plano Ouro</li>
-              <li>. 1 Diagnóstico online c/Mônica</li>
-              <li>. Aula ao vivo em grupo online</li>
+              <li>Tudo do VIP Duplo</li>
+              <li>1 Diagnóstico online c/Mônica</li>
+              <li>Aula ao vivo em grupo online</li>
             </ul>
-            <p class="plan-price">R$ 397,00</p>
-            <p class="plan-subprice">12x de R$40,82</p>
-            <button class="btn-primary plan-btn" data-plan="diamante">
-              Quero o plano Diamante
-            </button>
+            <p class="plan-price">R$ 398,00</p>
+            <p class="plan-subprice">12x de R$ 40,92</p>
+
+            
+<button class="btn-primary plan-buy-btn" type="button"
+  data-open-modal="plan"
+  data-plan="black"
+  data-checkout-bh="https://payfast.greenn.com.br/154259?batch=11757_XgQtVf"
+  data-checkout-bsb="https://payfast.greenn.com.br/158548?batch=12471_hImr8G">
+  Comprar →
+</button>
           </article>
         </div>
       </div>
@@ -573,46 +642,58 @@
   </main>
 
   <!-- MODAL DE CAPTURA ====================================== -->
-  <div class="modal-overlay" id="leadModal">
-    <div class="modal">
-      <button class="modal-close" id="modalClose" aria-label="Fechar formulário">&times;</button>
 
-      <h2>Garanta sua vaga na imersão de oratória</h2>
-      <p class="modal-subtitle">
-        Preencha seus dados para receber todas as informações, valores atualizados e condições especiais.
-      </p>
+<!-- MODAL DE CAPTURA (ÚNICO) ====================================== -->
+<div class="modal-overlay" id="leadModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Formulário de inscrição">
+    <button class="modal-close" data-close-modal aria-label="Fechar formulário">&times;</button>
 
-      <form id="leadForm" novalidate>
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="nome">Nome completo *</label>
-            <input type="text" id="nome" name="nome" required placeholder="Como você gostaria de ser chamado?">
-          </div>
+    <h2>Garanta sua vaga na imersão de oratória</h2>
+    <p class="modal-subtitle">
+      Preencha seus dados para receber as informações e entrar no grupo da sua cidade.
+    </p>
 
-          <div class="form-group">
-            <label for="email">E-mail *</label>
-            <input type="email" id="email" name="email" required placeholder="seuemail@exemplo.com">
-          </div>
+    <form id="leadForm" novalidate>
+      <div class="form-grid">
 
-          <div class="form-group">
-            <label for="profissao">Profissão *</label>
-            <input type="text" id="profissao" name="profissao" required placeholder="Ex.: Advogado, Gestor, Empreendedor">
-          </div>
-
-          <div class="form-group">
-            <label for="whatsapp">Whatsapp *</label>
-            <input type="tel" id="whatsapp" name="whatsapp" required placeholder="(DDD) 9 9999-9999">
-          </div>
+        <div class="form-group form-group-full">
+          <label for="cidade">Cidade *</label>
+          <select id="cidade" name="cidade" required>
+            <option value="" selected disabled>Selecione a cidade</option>
+            <option value="bh">Belo Horizonte</option>
+            <option value="bsb">Brasília</option>
+          </select>
         </div>
 
-        <button type="submit" class="btn-primary btn-full">
-          Quero receber os detalhes da imersão →
-        </button>
+        <div class="form-group">
+          <label for="nome">Nome completo *</label>
+          <input type="text" id="nome" name="nome" required placeholder="Como você gostaria de ser chamado?">
+        </div>
 
-        <p class="form-feedback" id="formFeedback"></p>
-      </form>
-    </div>
+        <div class="form-group">
+          <label for="email">E-mail *</label>
+          <input type="email" id="email" name="email" required placeholder="seuemail@exemplo.com">
+        </div>
+
+        <div class="form-group">
+          <label for="profissao">Profissão *</label>
+          <input type="text" id="profissao" name="profissao" required placeholder="Ex.: Advogado, Gestor, Empreendedor">
+        </div>
+
+        <div class="form-group">
+          <label for="whatsapp">Whatsapp *</label>
+          <input type="tel" id="whatsapp" name="whatsapp" required placeholder="(DDD) 9 9999-9999">
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary btn-full">
+        Continuar →
+      </button>
+
+      <p class="form-feedback" id="formFeedback"></p>
+    </form>
   </div>
+</div>
 
   <footer class="site-footer">
     <div class="footer-container">

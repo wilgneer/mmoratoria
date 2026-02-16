@@ -1,127 +1,123 @@
+// ==================================================
+// Destrave Sua Voz — Script (limpo)
+// - Modal único (lead)
+// - CTA: destino depende da cidade selecionada no modal
+// - Planos: "Comprar" abre modal já com cidade do filtro selecionada e usa o link do próprio botão
+// - Ver Planos -> mostra apenas cards BH/BSB -> clique revela planos com transição
+// - FAQ accordion + Galeria + Lite YouTube + Service Worker
+// ==================================================
+
 // ===============================
-// MODAL (Abrir / Fechar)
+// CONFIG (Sheets + Destinos) 
 // ===============================
-const modalOverlay = document.getElementById("leadModal");
-const modalClose = document.getElementById("modalClose");
-const openModalButtons = document.querySelectorAll("[data-open-modal]");
+// WebApps (Apps Script) — UMA URL PARA CADA PLANILHA
+const SHEETS_BH_URL  = "https://script.google.com/macros/s/AKfycbyCc_2MgAYfn1DBVWueCZrlKfHLf2nRD_mE1JMv7CxGD1N4MV-b-MajKn4kut5lZH8I/exec";
+const SHEETS_BSB_URL = "https://script.google.com/macros/s/AKfycbzmqjQX8iZf60rhAIdrpMEA3UgACjvnkFXeDZcDLuSEQDKhqcdlC5KeKcgiae5-tucmHQ/exec";
 
-function openModal() {
-  if (!modalOverlay) return;
-  modalOverlay.classList.add("is-open");
+// Destinos dos CTAs (após o obrigado) — por cidade
+const CTA_NEXT_BH_URL  = "https://payfast.greenn.com.br/pre-checkout/154259";
+const CTA_NEXT_BSB_URL = "https://payfast.greenn.com.br/pre-checkout/158548";
+
+// ===============================
+// HELPERS
+// ===============================
+function normCity(v){
+  v = String(v || "").toLowerCase().trim();
+  if (v === "bsb" || v === "brasilia" || v === "brasília") return "bsb";
+  return "bh";
+}
+function isValidHttp(url){
+  return /^https?:\/\//i.test(String(url || "").trim());
+}
+function sheetsUrlByCity(city){
+  return normCity(city) === "bsb" ? SHEETS_BSB_URL : SHEETS_BH_URL;
+}
+function ctaNextByCity(city){
+  return normCity(city) === "bsb" ? CTA_NEXT_BSB_URL : CTA_NEXT_BH_URL;
 }
 
-function closeModal() {
-  if (!modalOverlay) return;
-  modalOverlay.classList.remove("is-open");
+// ===============================
+// MODAL (único) — abrir / fechar
+// ===============================
+const leadModal     = document.getElementById("leadModal");
+const leadForm      = document.getElementById("leadForm");
+const formFeedback  = document.getElementById("formFeedback");
+const selectCidade  = document.getElementById("cidade");
+
+let FLOW_TYPE = "cta"; // "cta" | "plan"
+let NEXT_URL  = "";    // destino final após obrigado
+
+function openModal(){
+  if (!leadModal) return;
+  leadModal.classList.add("is-open");
+  document.body.style.overflow = "hidden";
+}
+function closeModal(){
+  if (!leadModal) return;
+  leadModal.classList.remove("is-open");
+  document.body.style.overflow = "";
 }
 
-// abre modal em todos os CTAs com data-open-modal
-openModalButtons.forEach((btn) => {
-  btn.addEventListener("click", openModal);
-});
+// Abre modal em qualquer elemento com data-open-modal
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-open-modal]");
+  if (!btn) return;
 
-if (modalClose) modalClose.addEventListener("click", closeModal);
+  e.preventDefault();
 
-// fechar clicando fora do modal
-if (modalOverlay) {
-  modalOverlay.addEventListener("click", (e) => {
-    if (e.target === modalOverlay) closeModal();
-  });
-}
+  FLOW_TYPE = (btn.getAttribute("data-open-modal") === "plan") ? "plan" : "cta";
 
-// fechar com ESC
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && modalOverlay && modalOverlay.classList.contains("is-open")) {
-    closeModal();
+  // limpa feedback
+  if (formFeedback){
+    formFeedback.textContent = "";
+    formFeedback.classList.remove("error","ok");
   }
+
+  if (FLOW_TYPE === "cta") {
+    NEXT_URL = ""; // decidido no submit
+    if (selectCidade) selectCidade.value = "";
+    openModal();
+    return;
+  }
+
+  // FLOW_TYPE === "plan"
+  // Cidade vem do filtro atual da seção de planos (#planos data-city)
+  const planos = document.getElementById("planos");
+  const city = normCity(planos?.getAttribute("data-city") || "bh");
+  if (selectCidade) selectCidade.value = city;
+
+  // destino vem do próprio botão (data-checkout-bh/bsb)
+  const url = (city === "bsb")
+    ? (btn.getAttribute("data-checkout-bsb") || btn.getAttribute("data-checkout-url") || "")
+    : (btn.getAttribute("data-checkout-bh")  || btn.getAttribute("data-checkout-url") || "");
+
+  NEXT_URL = String(url || "").trim();
+
+  openModal();
+});
+
+// Fechar (x) e clique fora
+document.addEventListener("click", (e) => {
+  const closeBtn = e.target.closest("[data-close-modal]");
+  if (closeBtn){
+    e.preventDefault();
+    closeModal();
+    return;
+  }
+  if (e.target === leadModal) closeModal();
+});
+
+// ESC fecha
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
 });
 
 // ===============================
-// CONFIG (Sheets + Greenn)
+// Envio para Google Sheets (por cidade)
 // ===============================
-
-// 1) Cole aqui a URL do seu Google Apps Script (Web App /exec)
-const GOOGLE_SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwIga8zMlbINKkOYH3rYfPUB_fZUdEZLhvH27s_SZ5ROyVUfu23wrvhd92jKEwiKTlU/exec";
-
-// 2) Link da Greenn (checkout)
-const GREENN_CHECKOUT_URL = "https://payfast.greenn.com.br/pre-checkout/154259";
-
-// ===============================
-// FORMULÁRIO / INTEGRAÇÃO
-// ===============================
-const leadForm = document.getElementById("leadForm");
-const formFeedback = document.getElementById("formFeedback");
-
-if (leadForm) {
-  leadForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const nome = leadForm.nome?.value.trim() || "";
-    const email = leadForm.email?.value.trim() || "";
-    const profissao = leadForm.profissao?.value.trim() || "";
-    const whatsapp = leadForm.whatsapp?.value.trim() || "";
-
-    // validação simples
-    if (!nome || !email || !profissao || !whatsapp) {
-      if (formFeedback) {
-        formFeedback.textContent = "Preencha todos os campos obrigatórios.";
-        formFeedback.classList.remove("ok");
-        formFeedback.classList.add("error");
-      }
-      return;
-    }
-
-    const leadData = {
-      nome,
-      email,
-      profissao,
-      whatsapp,
-      origem: "LP Destrave Sua Voz",
-      datahora: new Date().toISOString(),
-    };
-
-    // trava botão para evitar duplo clique
-    const submitBtn = leadForm.querySelector('button[type="submit"]');
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.style.opacity = "0.75";
-      submitBtn.style.cursor = "not-allowed";
-    }
-
-    if (formFeedback) {
-      formFeedback.textContent = "Enviando...";
-      formFeedback.classList.remove("error", "ok");
-    }
-
-    // ✅ envia (sendBeacon/fetch keepalive)
-    sendToGoogleSheets(leadData);
-
-    if (formFeedback) {
-      formFeedback.textContent = "Recebido! Redirecionando...";
-      formFeedback.classList.remove("error");
-      formFeedback.classList.add("ok");
-    }
-
-    // ✅ fecha modal
-    closeModal();
-
-    // ✅ vai para obrigado (obrigado redireciona em 5s para o Green)
-    setTimeout(() => {
-      const url = `obrigado.html?to=${encodeURIComponent(GREENN_CHECKOUT_URL)}`;
-      window.location.href = url;
-    }, 150);
-  });
-}
-
-
-// ===============================
-// ENVIAR PARA GOOGLE SHEETS (RÁPIDO)
-// - sendBeacon (melhor para redirect)
-// - fallback fetch no-cors + keepalive
-// ===============================
-function sendToGoogleSheets(data) {
-  if (!GOOGLE_SHEETS_WEBAPP_URL || GOOGLE_SHEETS_WEBAPP_URL.includes("COLE_AQUI")) {
-    console.warn("GOOGLE_SHEETS_WEBAPP_URL não configurada. Lead não foi enviado ao Sheets.");
+function sendToGoogleSheets(webAppUrl, data){
+  if (!isValidHttp(webAppUrl)) {
+    console.warn("WebApp URL inválida:", webAppUrl);
     return false;
   }
 
@@ -130,11 +126,11 @@ function sendToGoogleSheets(data) {
 
     if (navigator.sendBeacon) {
       const blob = new Blob([payload], { type: "text/plain;charset=utf-8" });
-      const ok = navigator.sendBeacon(GOOGLE_SHEETS_WEBAPP_URL, blob);
+      const ok = navigator.sendBeacon(webAppUrl, blob);
       if (ok) return true;
     }
 
-    fetch(GOOGLE_SHEETS_WEBAPP_URL, {
+    fetch(webAppUrl, {
       method: "POST",
       mode: "no-cors",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -149,67 +145,201 @@ function sendToGoogleSheets(data) {
   }
 }
 
-// Abre a página de obrigado em nova aba ao clicar em qualquer botão de Lead
-document.querySelectorAll('[data-open-modal]').forEach((btn) => {
-  btn.addEventListener('click', (e) => {
+// ===============================
+// SUBMIT do Modal
+// ===============================
+if (leadForm) {
+  leadForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    // Se você ainda quer abrir o modal, comente a linha de baixo.
-    // Se a mudança de fluxo é TOTAL (sem modal), mantenha como está.
-    openModal();
+    const city = normCity(selectCidade?.value || "");
+    if (!selectCidade?.value) {
+      if (formFeedback){
+        formFeedback.textContent = "Selecione a cidade.";
+        formFeedback.classList.add("error");
+      }
+      return;
+    }
 
-    // Se você quer impedir o modal de abrir, garanta que seu código do modal
-    // não execute quando esse fluxo estiver ativo.
+    const nome      = leadForm.querySelector("#nome")?.value.trim() || "";
+    const email     = leadForm.querySelector("#email")?.value.trim() || "";
+    const profissao = leadForm.querySelector("#profissao")?.value.trim() || "";
+    const whatsapp  = leadForm.querySelector("#whatsapp")?.value.trim() || "";
+
+    if (!nome || !email || !profissao || !whatsapp) {
+      if (formFeedback){
+        formFeedback.textContent = "Preencha todos os campos obrigatórios.";
+        formFeedback.classList.add("error");
+      }
+      return;
+    }
+
+    // Decide destino final
+    const destino = (FLOW_TYPE === "plan") ? NEXT_URL : ctaNextByCity(city);
+
+    if (!isValidHttp(destino)) {
+      if (formFeedback){
+        formFeedback.textContent = "Destino não configurado. Verifique os links no script.js.";
+        formFeedback.classList.add("error");
+      }
+      console.warn("Destino inválido:", { FLOW_TYPE, destino, NEXT_URL, city });
+      return;
+    }
+
+    const cidadeFinal = (city === "bsb") ? "Brasília" : "Belo Horizonte";
+
+    const payload = {
+      nome,
+      email,
+      profissao,
+      whatsapp,
+      cidade: cidadeFinal,
+      origem: "LP Destrave sua Voz",
+      pagina: location.pathname,
+      datahora: new Date().toISOString(),
+      lgpd: true
+    };
+
+    // planilha correta
+    sendToGoogleSheets(sheetsUrlByCity(city), payload);
+
+    if (formFeedback){
+      formFeedback.textContent = "Recebido! Redirecionando...";
+      formFeedback.classList.remove("error");
+      formFeedback.classList.add("ok");
+    }
+
+    closeModal();
+
+    // passa pelo obrigado e redireciona
+    setTimeout(() => {
+      window.location.href = `obrigado.html?to=${encodeURIComponent(destino)}`;
+    }, 150);
   });
-});
+}
+
+// ===============================
+// VER PLANOS -> mostra só cards BH/BSB
+// ===============================
+function showPlansAndScroll(){
+  const section = document.getElementById("planos");
+  const content = document.getElementById("plansContent");
+  const pills   = document.querySelectorAll("[data-plans-city]");
+  if (!section) return;
+
+  section.classList.remove("hidden");
+
+  // mostra somente os 2 cards e mantém planos ocultos até escolher a cidade
+  if (content) content.classList.add("is-hidden");
+  section.setAttribute("data-city", "");
+  pills.forEach((p) => {
+    p.classList.remove("is-active");
+    p.setAttribute("aria-selected", "false");
+  });
+
+  section.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+const btnVerPlanos = document.getElementById("btnVerPlanos");
+if (btnVerPlanos) btnVerPlanos.addEventListener("click", (e) => { e.preventDefault(); showPlansAndScroll(); });
+
+const btnVerPlanosHero = document.getElementById("btnVerPlanosHero");
+if (btnVerPlanosHero) btnVerPlanosHero.addEventListener("click", (e) => { e.preventDefault(); showPlansAndScroll(); });
+
+// ===============================
+// PLANOS — BH/BSB (aparece/some com transição)
+// ===============================
+(function initPlansCityToggle(){
+  const section = document.getElementById("planos");
+  const content = document.getElementById("plansContent");
+  const pills = Array.from(document.querySelectorAll("[data-plans-city]"));
+  if (!section || !content || !pills.length) return;
+
+  let currentCity = "";
+  let revealed = false;
+
+  function setActive(city){
+    pills.forEach((p) => {
+      const active = p.getAttribute("data-plans-city") === city;
+      p.classList.toggle("is-active", active);
+      p.setAttribute("aria-selected", active ? "true" : "false");
+    });
+  }
+
+  function setCity(city){
+    section.setAttribute("data-city", city);
+    currentCity = city;
+    setActive(city);
+  }
+
+  function reveal(){
+    content.classList.remove("is-hidden");
+    revealed = true;
+  }
+
+  document.addEventListener("click", (e) => {
+    const pill = e.target.closest("[data-plans-city]");
+    if (!pill) return;
+
+    e.preventDefault();
+    const nextCity = normCity(pill.getAttribute("data-plans-city"));
+
+    if (!revealed) {
+      setCity(nextCity);
+      requestAnimationFrame(reveal);
+      return;
+    }
+
+    if (nextCity === currentCity) return;
+
+    content.classList.add("is-switching");
+    setTimeout(() => {
+      setCity(nextCity);
+      content.classList.remove("is-switching");
+    }, 170);
+  });
+})();
 
 // ==========================
-// FAQ (accordion otimizado)
-// - Um único listener
-// - Altura real via scrollHeight (anima suave)
+// FAQ (accordion)
 // ==========================
 const faqList = document.querySelector(".faq-list");
-
 if (faqList) {
   faqList.addEventListener("click", (e) => {
     const btn = e.target.closest(".faq-question");
     if (!btn) return;
 
     const item = btn.closest(".faq-item");
-    if (!item) return;
+    const answer = item?.querySelector(".faq-answer");
+    const icon = item?.querySelector(".faq-icon");
+    const isOpen = item?.classList.contains("is-open");
 
-    const answer = item.querySelector(".faq-answer");
-    const icon = item.querySelector(".faq-icon");
-    const isOpen = item.classList.contains("is-open");
-
-    // Fecha o que estiver aberto (apenas 1)
     const openItem = faqList.querySelector(".faq-item.is-open");
     if (openItem && openItem !== item) {
       const openBtn = openItem.querySelector(".faq-question");
       const openAnswer = openItem.querySelector(".faq-answer");
       const openIcon = openItem.querySelector(".faq-icon");
-
       openItem.classList.remove("is-open");
-      if (openBtn) openBtn.setAttribute("aria-expanded", "false");
+      openBtn?.setAttribute("aria-expanded", "false");
       if (openIcon) openIcon.textContent = "+";
       if (openAnswer) openAnswer.style.height = "0px";
     }
 
-    // Alterna o clicado
+    if (!item || !answer) return;
+
     if (isOpen) {
       item.classList.remove("is-open");
       btn.setAttribute("aria-expanded", "false");
       if (icon) icon.textContent = "+";
-      if (answer) answer.style.height = "0px";
+      answer.style.height = "0px";
     } else {
       item.classList.add("is-open");
       btn.setAttribute("aria-expanded", "true");
       if (icon) icon.textContent = "−";
-      if (answer) answer.style.height = answer.scrollHeight + "px";
+      answer.style.height = answer.scrollHeight + "px";
     }
   });
 
-  // Ajusta altura quando a tela muda
   window.addEventListener("resize", () => {
     const openAnswer = document.querySelector(".faq-item.is-open .faq-answer");
     if (openAnswer) openAnswer.style.height = openAnswer.scrollHeight + "px";
@@ -220,26 +350,20 @@ if (faqList) {
 // CARRETEL / GALERIA
 // ===============================
 const galleryTrack = document.getElementById("galleryTrack");
-const galleryPrev = document.getElementById("galleryPrev");
-const galleryNext = document.getElementById("galleryNext");
+const galleryPrev  = document.getElementById("galleryPrev");
+const galleryNext  = document.getElementById("galleryNext");
 
 if (galleryTrack && galleryPrev && galleryNext) {
   galleryPrev.addEventListener("click", () => {
-    galleryTrack.scrollBy({
-      left: -galleryTrack.clientWidth,
-      behavior: "smooth",
-    });
+    galleryTrack.scrollBy({ left: -galleryTrack.clientWidth, behavior: "smooth" });
   });
-
   galleryNext.addEventListener("click", () => {
-    galleryTrack.scrollBy({
-      left: galleryTrack.clientWidth,
-      behavior: "smooth",
-    });
+    galleryTrack.scrollBy({ left: galleryTrack.clientWidth, behavior: "smooth" });
   });
+}
 
 // ===============================
-// LITE YOUTUBE (carrega iframe só no clique)
+// LITE YOUTUBE
 // ===============================
 function setupLiteYouTube() {
   const nodes = document.querySelectorAll(".yt-lite[data-id]");
@@ -249,11 +373,9 @@ function setupLiteYouTube() {
     const id = el.getAttribute("data-id");
     const label = el.getAttribute("data-label") || "Depoimento";
 
-    // Thumb melhor. Se não existir maxres, o YouTube retorna 404; então usamos hqdefault por padrão.
     const thumbHQ = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
     el.style.backgroundImage = `url("${thumbHQ}")`;
 
-    // UI (play + label)
     el.innerHTML = `
       <svg class="yt-play" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M8 5v14l11-7z"></path>
@@ -263,20 +385,16 @@ function setupLiteYouTube() {
 
     const activate = () => {
       el.classList.add("is-playing");
-
       const iframe = document.createElement("iframe");
-      iframe.allow =
-        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
       iframe.allowFullscreen = true;
       iframe.loading = "lazy";
       iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
-
       iframe.style.position = "absolute";
       iframe.style.inset = "0";
       iframe.style.width = "100%";
       iframe.style.height = "100%";
       iframe.style.border = "0";
-
       el.innerHTML = "";
       el.appendChild(iframe);
     };
@@ -291,55 +409,13 @@ function setupLiteYouTube() {
     el.setAttribute("aria-label", `Reproduzir ${label}`);
   });
 }
-
 setupLiteYouTube();
 
-// === Links da Greenn por plano (troque pelas URLs reais) ===
-const GREENN_URLS = {
-  prata: "https://payfast.greenn.com.br/154259?batch=11754_bj0FFZ",
-  ouro: "https://payfast.greenn.com.br/154259?batch=11755_YgnOik",
-  diamante: "https://payfast.greenn.com.br/154259?batch=11757_XgQtVf",
-};
-
-// clique nos botões de plano -> redireciona para a Greenn
-document.addEventListener("click", (e) => {
-  const btn = e.target.closest(".plan-btn");
-  if (!btn) return;
-
-  const plan = btn.getAttribute("data-plan");
-  const url = GREENN_URLS[plan];
-
-  if (!url || url.includes("SEU-LINK-GREENN")) {
-    alert("Link do checkout ainda não configurado para este plano.");
-    return;
-  }
-
-  window.location.href = url;
-});
-
+// ===============================
+// Service Worker
+// ===============================
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("/sw.js");
   });
 }
-
-// ===============================
-// MOSTRAR PLANOS (on-demand)
-// ===============================
-const btnVerPlanos = document.getElementById("btnVerPlanos");
-const sectionPlanos = document.getElementById("planos");
-
-if (btnVerPlanos && sectionPlanos) {
-  btnVerPlanos.addEventListener("click", () => {
-    // Mostra a seção (remove hidden e ativa animação)
-    sectionPlanos.classList.remove("hidden");
-    sectionPlanos.classList.add("show");
-
-    // Desce até os planos
-    sectionPlanos.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-}
-
-}
-
-
