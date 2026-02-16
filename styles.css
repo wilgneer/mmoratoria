@@ -2019,3 +2019,24 @@ body {
     font-size: 12.5px !important;
   }
 }
+
+/* ===== MODAL: scroll no mobile (e web) ===== */
+.modal-overlay{
+  overflow-y: auto;                 /* permite rolar o overlay */
+  -webkit-overflow-scrolling: touch;
+  padding: 16px;                    /* respiro nas bordas */
+}
+
+.modal{
+  max-height: calc(100vh - 32px);   /* não estoura a tela */
+  overflow-y: auto;                 /* rola dentro do modal */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile: deixa ainda mais seguro */
+@media (max-width: 768px){
+  .modal{
+    width: min(520px, 100%);
+    max-height: calc(100vh - 24px);
+  }
+}
