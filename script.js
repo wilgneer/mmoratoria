@@ -15,7 +15,7 @@ const SHEETS_BH_URL  = "https://script.google.com/macros/s/AKfycbyCc_2MgAYfn1DBV
 const SHEETS_BSB_URL = "https://script.google.com/macros/s/AKfycbzmqjQX8iZf60rhAIdrpMEA3UgACjvnkFXeDZcDLuSEQDKhqcdlC5KeKcgiae5-tucmHQ/exec";
 
 // Destinos dos CTAs (após o obrigado) — por cidade
-const CTA_NEXT_BH_URL  = "https://payfast.greenn.com.br/pre-checkout/154259";
+const CTA_NEXT_BH_URL  = "https://payfast.greenn.com.br/pre-checkout/ttvfaa7";
 const CTA_NEXT_BSB_URL = "https://payfast.greenn.com.br/pre-checkout/158548";
 
 // ===============================
