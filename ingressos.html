@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-TZ8GTJV7');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <meta charset="UTF-8" />
+  <title>Ingressos — Destrave sua Voz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="img/mm.webp" type="image/webp">
+  <link rel="shortcut icon" href="img/mm.webp" type="image/webp">
+  <link rel="apple-touch-icon" href="img/mm.webp">
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* ── INGRESSOS PAGE ── */
+
+    .tkt-header {
+      display: flex;
+      justify-content: center;
+      padding: 28px 16px 0;
+    }
+    .tkt-header a img {
+      height: 54px;
+      width: auto;
+    }
+
+    /* Headline */
+    .tkt-headline {
+      text-align: center;
+      padding: 52px 16px 0;
+    }
+    .tkt-headline h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .tkt-headline h1 span {
+      color: var(--accent);
+    }
+    .tkt-headline p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Cards grid */
+    .tkt-section {
+      padding: 48px 16px 80px;
+    }
+    .tkt-grid {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 24px;
+      justify-items: center;
+    }
+
+    /* Card base */
+    .tkt-card {
+      position: relative;
+      width: 100%;
+      max-width: 280px;
+      background: var(--bg-card);
+      border-radius: 22px;
+      padding: 30px 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow-soft);
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+    .tkt-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 28px 60px rgba(0,0,0,.8);
+    }
+
+    /* Featured badge */
+    .tkt-tag {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      padding: 4px 16px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    /* Card tier accent borders */
+    .tkt-silver { border-top: 3px solid #b4b4b4; }
+    .tkt-vip    { border-top: 3px solid var(--accent); }
+    .tkt-duplo  { border-top: 3px solid #ffcb3b; background: linear-gradient(160deg, #1d1505 0%, #151515 60%); }
+    .tkt-black  {
+      border-top: 3px solid #1a1a1a;
+      background: linear-gradient(160deg, #0a0a0a 0%, #111 60%);
+      box-shadow: 0 25px 60px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    .tkt-card-tier {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      margin-bottom: 2px;
+    }
+    .tkt-silver .tkt-card-tier { color: #b4b4b4; }
+    .tkt-vip    .tkt-card-tier { color: var(--accent); }
+    .tkt-duplo  .tkt-card-tier { color: #ffcb3b; }
+    .tkt-black  .tkt-card-tier { color: rgba(255,255,255,.5); letter-spacing: .18em; }
+
+    .tkt-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .tkt-card-desc {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .tkt-card-list {
+      list-style: none;
+      padding: 0;
+      margin: 6px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      flex: 1;
+    }
+    .tkt-card-list li {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      padding-left: 18px;
+      position: relative;
+    }
+    .tkt-card-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .tkt-duplo .tkt-card-list li::before { color: #ffcb3b; }
+    .tkt-black .tkt-card-list li::before { color: rgba(255,255,255,.45); }
+
+    .tkt-price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 8px 0 0;
+      line-height: 1;
+    }
+    .tkt-price-sub {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,.45);
+      margin: 3px 0 14px;
+    }
+
+    .tkt-buy-btn {
+      margin-top: auto;
+    }
+
+    /* ── MODAL ── */
+    .tkt-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0,0,0,.78);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .tkt-modal-overlay.is-open {
+      display: flex;
+    }
+    .tkt-modal {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      background: #111;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 22px;
+      padding: 36px 30px 30px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.9);
+    }
+    .tkt-modal-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,.6);
+      font-size: 1.6rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: color .15s;
+    }
+    .tkt-modal-close:hover { color: #fff; }
+
+    .tkt-modal h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .tkt-modal-plan-name {
+      font-size: 0.88rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .tkt-form-group {
+      margin-bottom: 14px;
+    }
+    .tkt-form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: var(--text-secondary);
+    }
+    .tkt-form-group input {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .tkt-form-group input:focus {
+      border-color: var(--accent);
+    }
+    .tkt-form-group input::placeholder {
+      color: rgba(255,255,255,.3);
+    }
+
+    .tkt-form-feedback {
+      font-size: 0.82rem;
+      margin-top: 10px;
+      min-height: 18px;
+      text-align: center;
+    }
+    .tkt-form-feedback.error { color: #ff6b6b; }
+    .tkt-form-feedback.ok    { color: #7ddf7d; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .tkt-grid {
+        grid-template-columns: 1fr;
+      }
+      .tkt-card {
+        max-width: 100%;
+      }
+      .tkt-modal {
+        padding: 28px 20px 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TZ8GTJV7"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <!-- Logo -->
+  <header class="tkt-header">
+    <a href="index.html">
+      <img src="img/logo-320.webp" alt="Destrave sua Voz" width="220" height="80" decoding="async">
+    </a>
+  </header>
+
+  <!-- Headline -->
+  <div class="tkt-headline">
+    <h1>Garanta seu <span>Ingresso</span></h1>
+    <p>Escolha o ingresso ideal e garanta sua vaga na imersão. Vagas limitadas!</p>
+  </div>
+
+  <!-- Ticket Cards -->
+  <section class="tkt-section">
+    <div class="tkt-grid">
+
+      <!-- SILVER INDIVIDUAL -->
+      <article class="tkt-card tkt-silver">
+        <span class="tkt-card-tier">Silver</span>
+        <h3>Silver Individual</h3>
+        <p class="tkt-card-desc">Para quem quer dar o primeiro passo</p>
+        <ul class="tkt-card-list">
+          <li>Acesso ao evento</li>
+          <li>Certificado</li>
+        </ul>
+        <p class="tkt-price">R$ 97,00</p>
+        <p class="tkt-price-sub">Ingresso individual</p>
+        <button
+          class="btn-primary tkt-buy-btn"
+          type="button"
+          data-tkt-plan="Silver Individual"
+          data-tkt-checkout="https://payfast.greenn.com.br/165069?batch=13386_qGpwJ2">
+          Comprar →
+        </button>
+      </article>
+
+      <!-- VIP INDIVIDUAL -->
+      <article class="tkt-card tkt-vip">
+        <span class="tkt-card-tier">VIP</span>
+        <h3>VIP Individual</h3>
+        <p class="tkt-card-desc">Para quem quer uma experiência mais completa</p>
+        <ul class="tkt-card-list">
+          <li>Acesso ao evento</li>
+          <li>Material impresso</li>
+          <li>Coffee break</li>
+          <li>Certificado</li>
+        </ul>
+        <p class="tkt-price">R$ 198,00</p>
+        <p class="tkt-price-sub">Ingresso individual</p>
+        <button
+          class="btn-primary tkt-buy-btn"
+          type="button"
+          data-tkt-plan="VIP Individual"
+          data-tkt-checkout="https://payfast.greenn.com.br/165069?batch=13387_Hhc3NW">
+          Comprar →
+        </button>
+      </article>
+
+      <!-- VIP DUPLO -->
+      <article class="tkt-card tkt-duplo">
+        <div class="tkt-tag">Mais escolhido</div>
+        <span class="tkt-card-tier">VIP Duplo</span>
+        <h3>VIP Duplo</h3>
+        <p class="tkt-card-desc">Ideal para levar uma pessoa especial</p>
+        <ul class="tkt-card-list">
+          <li>2 Pessoas incluídas</li>
+          <li>Material Impresso</li>
+          <li>Coffee break</li>
+          <li>Aula Bônus</li>
+          <li>Certificado</li>
+        </ul>
+        <p class="tkt-price">R$ 328,00</p>
+        <p class="tkt-price-sub">Ingresso para 2 pessoas</p>
+        <button
+          class="btn-primary tkt-buy-btn"
+          type="button"
+          data-tkt-plan="VIP Duplo"
+          data-tkt-checkout="https://payfast.greenn.com.br/165069?batch=13388_ruNPfA">
+          Comprar →
+        </button>
+      </article>
+
+      <!-- BLACK INDIVIDUAL -->
+      <article class="tkt-card tkt-black">
+        <span class="tkt-card-tier">Black</span>
+        <h3>Black Individual</h3>
+        <p class="tkt-card-desc">Para quem quer performance máxima</p>
+        <ul class="tkt-card-list">
+          <li>Tudo do VIP Duplo</li>
+          <li>1 Diagnóstico online c/ Mônica</li>
+          <li>Aula ao vivo em grupo online</li>
+        </ul>
+        <p class="tkt-price">R$ 398,00</p>
+        <p class="tkt-price-sub">Ingresso individual</p>
+        <button
+          class="btn-primary tkt-buy-btn"
+          type="button"
+          data-tkt-plan="Black Individual"
+          data-tkt-checkout="https://payfast.greenn.com.br/165069?batch=13388_ruNPfA">
+          Comprar →
+        </button>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- WhatsApp float -->
+  <a href="https://wa.me/5531999655378" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <img src="img/wpp.png" alt="WhatsApp" width="28" height="28" decoding="async" loading="lazy">
+  </a>
+
+  <!-- MODAL DE CAPTURA -->
+  <div class="tkt-modal-overlay" id="tktModal" aria-hidden="true">
+    <div class="tkt-modal" role="dialog" aria-modal="true" aria-label="Formulário de inscrição">
+      <button class="tkt-modal-close" id="tktModalClose" aria-label="Fechar">&times;</button>
+
+      <h2>Quase lá! Preencha seus dados</h2>
+      <p class="tkt-modal-plan-name" id="tktModalPlanName"></p>
+
+      <form id="tktLeadForm" novalidate>
+        <div class="tkt-form-group">
+          <label for="tktNome">Nome completo *</label>
+          <input type="text" id="tktNome" name="nome" required placeholder="Como você gostaria de ser chamado?">
+        </div>
+        <div class="tkt-form-group">
+          <label for="tktEmail">E-mail *</label>
+          <input type="email" id="tktEmail" name="email" required placeholder="seuemail@exemplo.com">
+        </div>
+        <div class="tkt-form-group">
+          <label for="tktWhatsapp">WhatsApp *</label>
+          <input type="tel" id="tktWhatsapp" name="whatsapp" required placeholder="(DDD) 9 9999-9999">
+        </div>
+
+        <button type="submit" class="btn-primary btn-full" style="margin-top:6px;">
+          Garantir ingresso →
+        </button>
+
+        <p class="tkt-form-feedback" id="tktFormFeedback"></p>
+      </form>
+    </div>
+  </div>
+
+
+  <script>
+    // ── CONFIG ──
+    const SHEETS_URL = "https://script.google.com/macros/s/AKfycbyCc_2MgAYfn1DBVWueCZrlKfHLf2nRD_mE1JMv7CxGD1N4MV-b-MajKn4kut5lZH8I/exec";
+
+    // ── MODAL STATE ──
+    const modal        = document.getElementById("tktModal");
+    const form         = document.getElementById("tktLeadForm");
+    const feedback     = document.getElementById("tktFormFeedback");
+    const planNameEl   = document.getElementById("tktModalPlanName");
+    let   pendingUrl   = "";
+    let   pendingPlan  = "";
+
+    function openModal(planName, checkoutUrl) {
+      pendingUrl  = checkoutUrl;
+      pendingPlan = planName;
+      planNameEl.textContent = "Ingresso: " + planName;
+      if (feedback) { feedback.textContent = ""; feedback.className = "tkt-form-feedback"; }
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+    function closeModal() {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    // Open on "Comprar" click
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-tkt-checkout]");
+      if (!btn) return;
+      e.preventDefault();
+      openModal(
+        btn.getAttribute("data-tkt-plan") || "",
+        btn.getAttribute("data-tkt-checkout") || ""
+      );
+    });
+
+    // Close
+    document.getElementById("tktModalClose").addEventListener("click", closeModal);
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
+    modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+
+    // ── FORM SUBMIT ──
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const nome     = form.querySelector("#tktNome").value.trim();
+      const email    = form.querySelector("#tktEmail").value.trim();
+      const whatsapp = form.querySelector("#tktWhatsapp").value.trim();
+
+      if (!nome || !email || !whatsapp) {
+        feedback.textContent = "Preencha todos os campos.";
+        feedback.className = "tkt-form-feedback error";
+        return;
+      }
+
+      if (!pendingUrl.startsWith("http")) {
+        feedback.textContent = "Link de compra não configurado.";
+        feedback.className = "tkt-form-feedback error";
+        return;
+      }
+
+      // Send lead
+      const payload = JSON.stringify({
+        nome,
+        email,
+        whatsapp,
+        ingresso: pendingPlan,
+        origem: "LP Ingressos — Destrave sua Voz",
+        pagina: location.pathname,
+        datahora: new Date().toISOString(),
+        lgpd: true
+      });
+
+      try {
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon(SHEETS_URL, new Blob([payload], { type: "text/plain;charset=utf-8" }));
+        } else {
+          fetch(SHEETS_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: payload, keepalive: true }).catch(() => {});
+        }
+      } catch (_) {}
+
+      feedback.textContent = "Recebido! Redirecionando...";
+      feedback.className = "tkt-form-feedback ok";
+
+      closeModal();
+
+      setTimeout(() => {
+        window.location.href = "obrigado.html?to=" + encodeURIComponent(pendingUrl);
+      }, 150);
+    });
+  </script>
+</body>
+</html>
