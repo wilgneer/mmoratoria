@@ -2,522 +2,875 @@
 <html lang="pt-BR">
 <head>
   <!-- Google Tag Manager -->
-  <script>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != 'dataLayer' ? '&l=' + l : '';
-      j.async = true;
-      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-TZ8GTJV7');
-  </script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TZ8GTJV7');</script>
   <!-- End Google Tag Manager -->
 
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ingressos — Destrave sua Voz</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
   <link rel="icon" href="img/mm.webp" type="image/webp">
   <link rel="shortcut icon" href="img/mm.webp" type="image/webp">
   <link rel="apple-touch-icon" href="img/mm.webp">
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* ── INGRESSOS PAGE ── */
+    /* ═══════════════════════════════════════
+       TOKENS
+    ═══════════════════════════════════════ */
+    :root {
+      --ink:        #050505;
+      --surface:    #0d0d0d;
+      --surface-2:  #141414;
+      --border:     rgba(255,255,255,.07);
+      --amber:      #ff9a1f;
+      --amber-dim:  rgba(255,154,31,.12);
+      --gold:       #f0c040;
+      --gold-dim:   rgba(240,192,64,.12);
+      --silver:     #c8c8c8;
+      --silver-dim: rgba(200,200,200,.08);
+      --w100:       rgba(255,255,255,1);
+      --w60:        rgba(255,255,255,.60);
+      --w35:        rgba(255,255,255,.35);
+      --w15:        rgba(255,255,255,.15);
+      --w06:        rgba(255,255,255,.06);
+    }
 
-    .tkt-header {
+    /* ═══════════════════════════════════════
+       RESET + BASE
+    ═══════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      background: var(--ink);
+      color: var(--w100);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Ambient glow — top center */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -30%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1000px;
+      height: 700px;
+      background: radial-gradient(ellipse at center,
+        rgba(255,154,31,.07) 0%,
+        transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Subtle vignette */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,.4) 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ═══════════════════════════════════════
+       HEADER
+    ═══════════════════════════════════════ */
+    .pg-header {
+      position: relative;
+      z-index: 10;
       display: flex;
       justify-content: center;
-      padding: 28px 16px 0;
+      padding: 36px 24px 0;
     }
-    .tkt-header a img {
-      height: 54px;
+    .pg-header img {
+      height: 50px;
       width: auto;
     }
 
-    /* Headline */
-    .tkt-headline {
+    /* ═══════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════ */
+    .pg-hero {
+      position: relative;
+      z-index: 10;
       text-align: center;
-      padding: 52px 16px 0;
-    }
-    .tkt-headline h1 {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 14px;
-    }
-    .tkt-headline h1 span {
-      color: var(--accent);
-    }
-    .tkt-headline p {
-      font-size: 1rem;
-      color: var(--text-secondary);
-      max-width: 560px;
+      padding: 56px 24px 0;
+      max-width: 700px;
       margin: 0 auto;
-      line-height: 1.6;
     }
 
-    /* Cards grid */
-    .tkt-section {
-      padding: 48px 16px 80px;
+    .pg-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--amber);
+      background: var(--amber-dim);
+      border: 1px solid rgba(255,154,31,.2);
+      border-radius: 999px;
+      padding: 7px 20px;
+      margin-bottom: 30px;
     }
-    .tkt-grid {
-      max-width: 1040px;
+    .pg-eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--amber);
+      animation: blink 2.4s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .35; transform: scale(.65); }
+    }
+
+    .pg-hero h1 {
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -.04em;
+      color: var(--w100);
+      margin-bottom: 20px;
+    }
+    .pg-hero h1 .accent { color: var(--amber); }
+
+    .pg-hero p {
+      font-size: clamp(.92rem, 1.8vw, 1.02rem);
+      font-weight: 400;
+      line-height: 1.75;
+      color: var(--w60);
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    /* Thin divider */
+    .pg-rule {
+      width: 48px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--amber), transparent);
+      margin: 40px auto;
+    }
+
+    /* ═══════════════════════════════════════
+       CARDS SECTION
+    ═══════════════════════════════════════ */
+    .pg-section {
+      position: relative;
+      z-index: 10;
+      padding: 0 20px 110px;
+    }
+
+    .pg-grid {
+      max-width: 1100px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 24px;
-      justify-items: center;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      align-items: start;
     }
 
-    /* Card base */
-    .tkt-card {
+    /* ── Card shell ── */
+    .tkt {
       position: relative;
-      width: 100%;
-      max-width: 280px;
-      background: var(--bg-card);
-      border-radius: 22px;
-      padding: 30px 24px 28px;
+      border-radius: 26px;
+      padding: 34px 26px 28px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow: var(--shadow-soft);
-      transition: transform .22s ease, box-shadow .22s ease;
+      overflow: hidden;
+      transition:
+        transform .35s cubic-bezier(.22,.61,.36,1),
+        box-shadow .35s ease;
+      will-change: transform;
     }
-    .tkt-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 28px 60px rgba(0,0,0,.8);
+    .tkt:hover { transform: translateY(-7px); }
+
+    /* Top shimmer line — drawn via ::before */
+    .tkt::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      pointer-events: none;
     }
 
-    /* Featured badge */
-    .tkt-tag {
+    /* ── Silver ── */
+    .tkt-silver {
+      background: linear-gradient(155deg, #1c1c1c 0%, #101010 100%);
+      border: 1px solid rgba(200,200,200,.10);
+      box-shadow:
+        0 24px 56px rgba(0,0,0,.75);
+    }
+    .tkt-silver::before {
+      background: linear-gradient(90deg,
+        transparent 5%,
+        rgba(200,200,200,.45) 50%,
+        transparent 95%);
+    }
+    .tkt-silver:hover {
+      box-shadow:
+        0 36px 72px rgba(0,0,0,.85),
+        0 0 48px rgba(200,200,200,.04);
+    }
+
+    /* ── VIP Individual ── */
+    .tkt-vip {
+      background: linear-gradient(155deg, #1e0e00 0%, #100800 100%);
+      border: 1px solid rgba(255,154,31,.16);
+      box-shadow:
+        0 24px 56px rgba(0,0,0,.75);
+    }
+    .tkt-vip::before {
+      background: linear-gradient(90deg,
+        transparent 5%,
+        rgba(255,154,31,.55) 50%,
+        transparent 95%);
+    }
+    .tkt-vip:hover {
+      box-shadow:
+        0 36px 72px rgba(0,0,0,.85),
+        0 0 60px rgba(255,154,31,.07);
+    }
+
+    /* ── VIP Duplo (featured) ── */
+    .tkt-duplo {
+      background: linear-gradient(155deg, #1e1400 0%, #0e0900 100%);
+      border: 1px solid rgba(240,192,64,.22);
+      box-shadow:
+        0 24px 56px rgba(0,0,0,.75),
+        0 0 90px rgba(240,192,64,.06);
+    }
+    .tkt-duplo::before {
+      background: linear-gradient(90deg,
+        transparent 3%,
+        rgba(240,192,64,.8) 50%,
+        transparent 97%);
+    }
+    .tkt-duplo:hover {
+      box-shadow:
+        0 40px 80px rgba(0,0,0,.9),
+        0 0 120px rgba(240,192,64,.10);
+    }
+
+    /* ── Black piano ── */
+    .tkt-black {
+      background: #050505;
+      border: 1px solid rgba(255,255,255,.05);
+      box-shadow:
+        0 24px 56px rgba(0,0,0,.92),
+        inset 0 1px 0 rgba(255,255,255,.04);
+    }
+    .tkt-black::before {
+      background: linear-gradient(90deg,
+        transparent 15%,
+        rgba(255,255,255,.10) 50%,
+        transparent 85%);
+    }
+    .tkt-black:hover {
+      box-shadow:
+        0 40px 80px rgba(0,0,0,.97),
+        inset 0 1px 0 rgba(255,255,255,.07);
+    }
+
+    /* ── Badge "Mais escolhido" ── */
+    .tkt-badge {
       position: absolute;
-      top: -14px;
+      top: 0;
       left: 50%;
       transform: translateX(-50%);
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.7rem;
+      background: linear-gradient(90deg, #967200, #f0c040 50%, #967200);
+      color: #000;
+      font-size: 0.6rem;
       font-weight: 700;
+      letter-spacing: .15em;
       text-transform: uppercase;
-      letter-spacing: .08em;
-      padding: 4px 16px;
-      border-radius: 999px;
+      padding: 5px 22px;
+      border-radius: 0 0 14px 14px;
       white-space: nowrap;
     }
 
-    /* Card tier accent borders */
-    .tkt-silver { border-top: 3px solid #b4b4b4; }
-    .tkt-vip    { border-top: 3px solid var(--accent); }
-    .tkt-duplo  { border-top: 3px solid #ffcb3b; background: linear-gradient(160deg, #1d1505 0%, #151515 60%); }
-    .tkt-black  {
-      border-top: 3px solid #1a1a1a;
-      background: linear-gradient(160deg, #0a0a0a 0%, #111 60%);
-      box-shadow: 0 25px 60px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.06);
-    }
-
-    .tkt-card-tier {
-      font-size: 0.7rem;
+    /* ── Tier label ── */
+    .tkt-tier {
+      font-size: 0.62rem;
       font-weight: 700;
+      letter-spacing: .26em;
       text-transform: uppercase;
-      letter-spacing: .12em;
-      margin-bottom: 2px;
+      margin-bottom: 12px;
     }
-    .tkt-silver .tkt-card-tier { color: #b4b4b4; }
-    .tkt-vip    .tkt-card-tier { color: var(--accent); }
-    .tkt-duplo  .tkt-card-tier { color: #ffcb3b; }
-    .tkt-black  .tkt-card-tier { color: rgba(255,255,255,.5); letter-spacing: .18em; }
+    .tkt-silver .tkt-tier { color: rgba(200,200,200,.55); }
+    .tkt-vip    .tkt-tier { color: rgba(255,154,31,.75); }
+    .tkt-duplo  .tkt-tier { color: rgba(240,192,64,.85); }
+    .tkt-black  .tkt-tier { color: rgba(255,255,255,.25); letter-spacing: .32em; }
 
-    .tkt-card h3 {
-      font-size: 1.25rem;
+    /* ── Card title ── */
+    .tkt h3 {
+      font-size: 1.22rem;
       font-weight: 700;
+      letter-spacing: -.025em;
       line-height: 1.2;
-      margin: 0;
+      color: var(--w100);
+      margin-bottom: 7px;
     }
 
-    .tkt-card-desc {
-      font-size: 0.82rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
-      margin: 0;
-    }
-
-    .tkt-card-list {
-      list-style: none;
-      padding: 0;
-      margin: 6px 0 0;
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      flex: 1;
-    }
-    .tkt-card-list li {
-      font-size: 0.84rem;
-      color: var(--text-secondary);
-      padding-left: 18px;
-      position: relative;
-    }
-    .tkt-card-list li::before {
-      content: "✓";
-      position: absolute;
-      left: 0;
-      color: var(--accent);
-      font-weight: 700;
-    }
-    .tkt-duplo .tkt-card-list li::before { color: #ffcb3b; }
-    .tkt-black .tkt-card-list li::before { color: rgba(255,255,255,.45); }
-
-    .tkt-price {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #fff;
-      margin: 8px 0 0;
-      line-height: 1;
-    }
-    .tkt-price-sub {
+    /* ── Card description ── */
+    .tkt-desc {
       font-size: 0.78rem;
-      color: rgba(255,255,255,.45);
-      margin: 3px 0 14px;
+      color: var(--w35);
+      line-height: 1.55;
+      margin-bottom: 22px;
     }
 
-    .tkt-buy-btn {
-      margin-top: auto;
-    }
-
-    /* ── MODAL ── */
-    .tkt-modal-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      background: rgba(0,0,0,.78);
-      backdrop-filter: blur(4px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-    .tkt-modal-overlay.is-open {
-      display: flex;
-    }
-    .tkt-modal {
-      position: relative;
-      width: 100%;
-      max-width: 480px;
-      background: #111;
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 22px;
-      padding: 36px 30px 30px;
-      box-shadow: 0 30px 80px rgba(0,0,0,.9);
-    }
-    .tkt-modal-close {
-      position: absolute;
-      top: 14px;
-      right: 18px;
-      background: none;
-      border: none;
-      color: rgba(255,255,255,.6);
-      font-size: 1.6rem;
-      line-height: 1;
-      cursor: pointer;
-      transition: color .15s;
-    }
-    .tkt-modal-close:hover { color: #fff; }
-
-    .tkt-modal h2 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-    .tkt-modal-plan-name {
-      font-size: 0.88rem;
-      color: var(--accent);
-      font-weight: 600;
+    /* ── Thin horizontal rule ── */
+    .tkt-hr {
+      height: 1px;
+      background: var(--border);
       margin-bottom: 20px;
     }
 
-    .tkt-form-group {
+    /* ── Feature list ── */
+    .tkt-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+      margin-bottom: 28px;
+    }
+    .tkt-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--w60);
+      line-height: 1.45;
+    }
+    .tkt-list li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      margin-top: 5px;
+    }
+    .tkt-silver .tkt-list li::before { background: rgba(200,200,200,.45); }
+    .tkt-vip    .tkt-list li::before { background: rgba(255,154,31,.55); }
+    .tkt-duplo  .tkt-list li::before { background: rgba(240,192,64,.65); }
+    .tkt-black  .tkt-list li::before { background: rgba(255,255,255,.18); }
+
+    /* ── Price ── */
+    .tkt-price {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      line-height: 1;
+      color: var(--w100);
+    }
+    .tkt-price-note {
+      font-size: 0.7rem;
+      color: var(--w35);
+      margin: 5px 0 22px;
+    }
+
+    /* ── Buy button per tier ── */
+    .tkt-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 13px 20px;
+      border-radius: 14px;
+      border: none;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform .25s ease, box-shadow .25s ease, background .2s;
+      will-change: transform;
+    }
+    .tkt-btn .arrow {
+      font-size: 1rem;
+      transition: transform .2s ease;
+    }
+    .tkt-btn:hover { transform: translateY(-2px); }
+    .tkt-btn:hover .arrow { transform: translateX(3px); }
+    .tkt-btn:active { transform: translateY(0) scale(.98); }
+
+    .tkt-silver .tkt-btn {
+      background: rgba(200,200,200,.09);
+      border: 1px solid rgba(200,200,200,.2);
+      color: rgba(255,255,255,.8);
+    }
+    .tkt-silver .tkt-btn:hover {
+      background: rgba(200,200,200,.16);
+      border-color: rgba(200,200,200,.35);
+      color: #fff;
+    }
+
+    .tkt-vip .tkt-btn {
+      background: linear-gradient(135deg, #d08200, #ff9a1f);
+      color: #fff;
+      box-shadow: 0 8px 26px rgba(255,154,31,.28);
+    }
+    .tkt-vip .tkt-btn:hover { box-shadow: 0 14px 36px rgba(255,154,31,.45); }
+
+    .tkt-duplo .tkt-btn {
+      background: linear-gradient(135deg, #9a7200, #f0c040);
+      color: #000;
+      font-weight: 800;
+      box-shadow: 0 8px 26px rgba(240,192,64,.22);
+    }
+    .tkt-duplo .tkt-btn:hover { box-shadow: 0 14px 36px rgba(240,192,64,.38); }
+
+    .tkt-black .tkt-btn {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.7);
+    }
+    .tkt-black .tkt-btn:hover {
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.18);
+      color: #fff;
+    }
+
+    /* ═══════════════════════════════════════
+       SCROLL REVEAL
+    ═══════════════════════════════════════ */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(22px);
+      transition:
+        opacity .65s ease var(--d, 0s),
+        transform .65s cubic-bezier(.22,.61,.36,1) var(--d, 0s);
+    }
+    [data-reveal].visible {
+      opacity: 1;
+      transform: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      [data-reveal] { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ═══════════════════════════════════════
+       MODAL
+    ═══════════════════════════════════════ */
+    .modal-wrap {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      background: rgba(0,0,0,.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-wrap.open { display: flex; }
+
+    .modal-box {
+      position: relative;
+      width: 100%;
+      max-width: 450px;
+      background: #0c0c0c;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 30px;
+      padding: 42px 36px 36px;
+      box-shadow:
+        0 50px 120px rgba(0,0,0,.98),
+        0 0 0 1px rgba(255,255,255,.03);
+      animation: modal-in .28s cubic-bezier(.22,.61,.36,1) both;
+    }
+    @keyframes modal-in {
+      from { opacity: 0; transform: scale(.94) translateY(12px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* Shimmer line atop modal */
+    .modal-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 15%; right: 15%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,154,31,.5), transparent);
+      border-radius: 999px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 18px; right: 22px;
+      width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 50%;
+      color: var(--w35);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background .18s, color .18s;
+    }
+    .modal-close:hover { background: rgba(255,255,255,.10); color: #fff; }
+
+    .modal-eyebrow {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 8px;
+    }
+    .modal-box h2 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -.025em;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .modal-plan {
+      font-size: 0.8rem;
+      color: var(--w35);
+      margin-bottom: 28px;
+    }
+
+    .form-field {
       margin-bottom: 14px;
     }
-    .tkt-form-group label {
+    .form-field label {
       display: block;
-      font-size: 0.8rem;
+      font-size: 0.68rem;
       font-weight: 600;
-      margin-bottom: 5px;
-      color: var(--text-secondary);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--w35);
+      margin-bottom: 7px;
     }
-    .tkt-form-group input {
+    .form-field input {
       width: 100%;
-      padding: 11px 14px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      color: #fff;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 12px;
+      padding: 13px 16px;
+      color: var(--w100);
       font-family: inherit;
       font-size: 0.9rem;
       outline: none;
-      transition: border-color .2s;
+      transition: border-color .2s, background .2s;
+      -webkit-appearance: none;
     }
-    .tkt-form-group input:focus {
-      border-color: var(--accent);
+    .form-field input:focus {
+      border-color: rgba(255,154,31,.45);
+      background: rgba(255,154,31,.03);
     }
-    .tkt-form-group input::placeholder {
-      color: rgba(255,255,255,.3);
-    }
+    .form-field input::placeholder { color: var(--w15); }
 
-    .tkt-form-feedback {
-      font-size: 0.82rem;
+    .form-submit {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
       margin-top: 10px;
-      min-height: 18px;
-      text-align: center;
+      padding: 15px 24px;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(135deg, #d08200, #ff9a1f 60%, #ff6e00);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 10px 32px rgba(255,154,31,.32);
+      transition: transform .25s ease, box-shadow .25s ease;
     }
-    .tkt-form-feedback.error { color: #ff6b6b; }
-    .tkt-form-feedback.ok    { color: #7ddf7d; }
+    .form-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(255,154,31,.48);
+    }
+    .form-submit:active { transform: scale(.98); }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
-      .tkt-grid {
-        grid-template-columns: 1fr;
-      }
-      .tkt-card {
-        max-width: 100%;
-      }
-      .tkt-modal {
-        padding: 28px 20px 24px;
-      }
+    .form-feedback {
+      font-size: 0.78rem;
+      text-align: center;
+      margin-top: 12px;
+      min-height: 16px;
+    }
+    .form-feedback.error { color: #ff7070; }
+    .form-feedback.ok    { color: #68dfa0; }
+
+    /* ═══════════════════════════════════════
+       WHATSAPP FLOAT
+    ═══════════════════════════════════════ */
+    .wpp-float {
+      position: fixed;
+      bottom: 26px; right: 26px;
+      z-index: 999;
+      width: 54px; height: 54px;
+      background: #25d366;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(37,211,102,.38);
+      transition: transform .22s ease, box-shadow .22s ease;
+      text-decoration: none;
+    }
+    .wpp-float:hover {
+      transform: scale(1.09);
+      box-shadow: 0 14px 32px rgba(37,211,102,.54);
+    }
+    .wpp-float img { width: 28px; height: 28px; }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 980px) {
+      .pg-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .pg-grid { grid-template-columns: 1fr; }
+      .tkt { max-width: 100%; }
+      .modal-box { padding: 34px 22px 28px; }
     }
   </style>
 </head>
 
 <body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TZ8GTJV7"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
-  <!-- End Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TZ8GTJV7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-  <!-- Logo -->
-  <header class="tkt-header">
+  <!-- ── HEADER ── -->
+  <header class="pg-header">
     <a href="index.html">
-      <img src="img/logo-320.webp" alt="Destrave sua Voz" width="220" height="80" decoding="async">
+      <img src="img/logo-320.webp"
+           srcset="img/logo-320.webp 320w, img/logo-640.webp 640w"
+           sizes="220px"
+           alt="Destrave sua Voz"
+           width="220" height="80"
+           decoding="async" fetchpriority="high">
     </a>
   </header>
 
-  <!-- Headline -->
-  <div class="tkt-headline">
-    <h1>Garanta seu <span>Ingresso</span></h1>
-    <p>Escolha o ingresso ideal e garanta sua vaga na imersão. Vagas limitadas!</p>
-  </div>
+  <!-- ── HERO ── -->
+  <section class="pg-hero" data-reveal style="--d:.05s">
+    <div class="pg-eyebrow">
+      <span class="pg-eyebrow-dot"></span>
+      Imersão em Oratória · BH · 2025
+    </div>
 
-  <!-- Ticket Cards -->
-  <section class="tkt-section">
-    <div class="tkt-grid">
+    <h1>
+      Escolha como você vai<br>
+      <span class="accent">destravar sua voz</span>
+    </h1>
 
-      <!-- SILVER INDIVIDUAL -->
-      <article class="tkt-card tkt-silver">
-        <span class="tkt-card-tier">Silver</span>
+    <p>
+      Cada ingresso abre a porta para uma transformação real na sua comunicação.
+      Vagas limitadas — escolha o seu nível e garanta agora.
+    </p>
+  </section>
+
+  <div class="pg-rule" data-reveal style="--d:.15s"></div>
+
+  <!-- ── CARDS ── -->
+  <section class="pg-section">
+    <div class="pg-grid">
+
+      <!-- SILVER -->
+      <article class="tkt tkt-silver" data-reveal style="--d:.1s">
+        <span class="tkt-tier">Silver</span>
         <h3>Silver Individual</h3>
-        <p class="tkt-card-desc">Para quem quer dar o primeiro passo</p>
-        <ul class="tkt-card-list">
-          <li>Acesso ao evento</li>
-          <li>Certificado</li>
+        <p class="tkt-desc">O ponto de partida para quem decide se comunicar melhor</p>
+        <div class="tkt-hr"></div>
+        <ul class="tkt-list">
+          <li>Acesso completo ao evento</li>
+          <li>Certificado de participação</li>
         </ul>
-        <p class="tkt-price">R$ 97,00</p>
-        <p class="tkt-price-sub">Ingresso individual</p>
-        <button
-          class="btn-primary tkt-buy-btn"
-          type="button"
-          data-tkt-plan="Silver Individual"
-          data-tkt-checkout="https://payfast.greenn.com.br/165069?batch=13386_qGpwJ2">
-          Comprar →
+        <p class="tkt-price">R$ 97</p>
+        <p class="tkt-price-note">Ingresso individual</p>
+        <button class="tkt-btn"
+          data-plan="Silver Individual"
+          data-url="https://payfast.greenn.com.br/165069?batch=13386_qGpwJ2">
+          Garantir vaga <span class="arrow">→</span>
         </button>
       </article>
 
       <!-- VIP INDIVIDUAL -->
-      <article class="tkt-card tkt-vip">
-        <span class="tkt-card-tier">VIP</span>
+      <article class="tkt tkt-vip" data-reveal style="--d:.2s">
+        <span class="tkt-tier">VIP</span>
         <h3>VIP Individual</h3>
-        <p class="tkt-card-desc">Para quem quer uma experiência mais completa</p>
-        <ul class="tkt-card-list">
-          <li>Acesso ao evento</li>
-          <li>Material impresso</li>
+        <p class="tkt-desc">Experiência completa para quem leva o desenvolvimento a sério</p>
+        <div class="tkt-hr"></div>
+        <ul class="tkt-list">
+          <li>Acesso completo ao evento</li>
+          <li>Material impresso exclusivo</li>
           <li>Coffee break</li>
-          <li>Certificado</li>
+          <li>Certificado de participação</li>
         </ul>
-        <p class="tkt-price">R$ 198,00</p>
-        <p class="tkt-price-sub">Ingresso individual</p>
-        <button
-          class="btn-primary tkt-buy-btn"
-          type="button"
-          data-tkt-plan="VIP Individual"
-          data-tkt-checkout="https://payfast.greenn.com.br/165069?batch=13387_Hhc3NW">
-          Comprar →
+        <p class="tkt-price">R$ 198</p>
+        <p class="tkt-price-note">Ingresso individual</p>
+        <button class="tkt-btn"
+          data-plan="VIP Individual"
+          data-url="https://payfast.greenn.com.br/165069?batch=13387_Hhc3NW">
+          Garantir vaga <span class="arrow">→</span>
         </button>
       </article>
 
       <!-- VIP DUPLO -->
-      <article class="tkt-card tkt-duplo">
-        <div class="tkt-tag">Mais escolhido</div>
-        <span class="tkt-card-tier">VIP Duplo</span>
+      <article class="tkt tkt-duplo" data-reveal style="--d:.3s">
+        <div class="tkt-badge">Mais escolhido</div>
+        <span class="tkt-tier">VIP Duplo</span>
         <h3>VIP Duplo</h3>
-        <p class="tkt-card-desc">Ideal para levar uma pessoa especial</p>
-        <ul class="tkt-card-list">
-          <li>2 Pessoas incluídas</li>
-          <li>Material Impresso</li>
-          <li>Coffee break</li>
-          <li>Aula Bônus</li>
-          <li>Certificado</li>
+        <p class="tkt-desc">Leve quem você ama nessa transformação</p>
+        <div class="tkt-hr"></div>
+        <ul class="tkt-list">
+          <li>2 pessoas incluídas</li>
+          <li>Material impresso exclusivo</li>
+          <li>Coffee break para ambos</li>
+          <li>Aula bônus especial</li>
+          <li>Certificado de participação</li>
         </ul>
-        <p class="tkt-price">R$ 328,00</p>
-        <p class="tkt-price-sub">Ingresso para 2 pessoas</p>
-        <button
-          class="btn-primary tkt-buy-btn"
-          type="button"
-          data-tkt-plan="VIP Duplo"
-          data-tkt-checkout="https://payfast.greenn.com.br/165069?batch=13388_ruNPfA">
-          Comprar →
+        <p class="tkt-price">R$ 328</p>
+        <p class="tkt-price-note">Ingresso para 2 pessoas</p>
+        <button class="tkt-btn"
+          data-plan="VIP Duplo"
+          data-url="https://payfast.greenn.com.br/165069?batch=13388_ruNPfA">
+          Garantir vaga <span class="arrow">→</span>
         </button>
       </article>
 
-      <!-- BLACK INDIVIDUAL -->
-      <article class="tkt-card tkt-black">
-        <span class="tkt-card-tier">Black</span>
+      <!-- BLACK -->
+      <article class="tkt tkt-black" data-reveal style="--d:.4s">
+        <span class="tkt-tier">Black</span>
         <h3>Black Individual</h3>
-        <p class="tkt-card-desc">Para quem quer performance máxima</p>
-        <ul class="tkt-card-list">
+        <p class="tkt-desc">Para quem exige o máximo de si e da experiência</p>
+        <div class="tkt-hr"></div>
+        <ul class="tkt-list">
           <li>Tudo do VIP Duplo</li>
-          <li>1 Diagnóstico online c/ Mônica</li>
+          <li>Diagnóstico individual online c/ Mônica</li>
           <li>Aula ao vivo em grupo online</li>
         </ul>
-        <p class="tkt-price">R$ 398,00</p>
-        <p class="tkt-price-sub">Ingresso individual</p>
-        <button
-          class="btn-primary tkt-buy-btn"
-          type="button"
-          data-tkt-plan="Black Individual"
-          data-tkt-checkout="https://payfast.greenn.com.br/165069?batch=13388_ruNPfA">
-          Comprar →
+        <p class="tkt-price">R$ 398</p>
+        <p class="tkt-price-note">Ingresso individual</p>
+        <button class="tkt-btn"
+          data-plan="Black Individual"
+          data-url="https://payfast.greenn.com.br/165069?batch=13388_ruNPfA">
+          Garantir vaga <span class="arrow">→</span>
         </button>
       </article>
 
     </div>
   </section>
 
-  <!-- WhatsApp float -->
-  <a href="https://wa.me/5531999655378" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <!-- ── WHATSAPP ── -->
+  <a href="https://wa.me/5531999655378" class="wpp-float" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
     <img src="img/wpp.png" alt="WhatsApp" width="28" height="28" decoding="async" loading="lazy">
   </a>
 
-  <!-- MODAL DE CAPTURA -->
-  <div class="tkt-modal-overlay" id="tktModal" aria-hidden="true">
-    <div class="tkt-modal" role="dialog" aria-modal="true" aria-label="Formulário de inscrição">
-      <button class="tkt-modal-close" id="tktModalClose" aria-label="Fechar">&times;</button>
+  <!-- ── MODAL ── -->
+  <div class="modal-wrap" id="modal" role="dialog" aria-modal="true" aria-label="Formulário de inscrição" aria-hidden="true">
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose" aria-label="Fechar">&times;</button>
 
-      <h2>Quase lá! Preencha seus dados</h2>
-      <p class="tkt-modal-plan-name" id="tktModalPlanName"></p>
+      <p class="modal-eyebrow">Quase lá</p>
+      <h2>Um passo para garantir<br>seu ingresso</h2>
+      <p class="modal-plan" id="modalPlan"></p>
 
-      <form id="tktLeadForm" novalidate>
-        <div class="tkt-form-group">
-          <label for="tktNome">Nome completo *</label>
-          <input type="text" id="tktNome" name="nome" required placeholder="Como você gostaria de ser chamado?">
+      <form id="leadForm" novalidate>
+        <div class="form-field">
+          <label for="fNome">Nome completo</label>
+          <input type="text" id="fNome" name="nome" required autocomplete="name" placeholder="Como gostaria de ser chamado?">
         </div>
-        <div class="tkt-form-group">
-          <label for="tktEmail">E-mail *</label>
-          <input type="email" id="tktEmail" name="email" required placeholder="seuemail@exemplo.com">
+        <div class="form-field">
+          <label for="fEmail">E-mail</label>
+          <input type="email" id="fEmail" name="email" required autocomplete="email" placeholder="seuemail@exemplo.com">
         </div>
-        <div class="tkt-form-group">
-          <label for="tktWhatsapp">WhatsApp *</label>
-          <input type="tel" id="tktWhatsapp" name="whatsapp" required placeholder="(DDD) 9 9999-9999">
+        <div class="form-field">
+          <label for="fWpp">WhatsApp</label>
+          <input type="tel" id="fWpp" name="whatsapp" required autocomplete="tel" placeholder="(DDD) 9 9999-9999">
         </div>
 
-        <button type="submit" class="btn-primary btn-full" style="margin-top:6px;">
-          Garantir ingresso →
+        <button type="submit" class="form-submit">
+          Garantir meu ingresso <span aria-hidden="true">→</span>
         </button>
 
-        <p class="tkt-form-feedback" id="tktFormFeedback"></p>
+        <p class="form-feedback" id="formFeedback" aria-live="polite"></p>
       </form>
     </div>
   </div>
 
-
   <script>
-    // ── CONFIG ──
-    const SHEETS_URL = "https://script.google.com/macros/s/AKfycbyCc_2MgAYfn1DBVWueCZrlKfHLf2nRD_mE1JMv7CxGD1N4MV-b-MajKn4kut5lZH8I/exec";
+    // ─── CONFIG ───────────────────────────────────────
+    const SHEETS = "https://script.google.com/macros/s/AKfycbyCc_2MgAYfn1DBVWueCZrlKfHLf2nRD_mE1JMv7CxGD1N4MV-b-MajKn4kut5lZH8I/exec";
 
-    // ── MODAL STATE ──
-    const modal        = document.getElementById("tktModal");
-    const form         = document.getElementById("tktLeadForm");
-    const feedback     = document.getElementById("tktFormFeedback");
-    const planNameEl   = document.getElementById("tktModalPlanName");
-    let   pendingUrl   = "";
-    let   pendingPlan  = "";
+    // ─── MODAL ────────────────────────────────────────
+    const modal     = document.getElementById("modal");
+    const form      = document.getElementById("leadForm");
+    const feedback  = document.getElementById("formFeedback");
+    const modalPlan = document.getElementById("modalPlan");
+    let url = "", plan = "";
 
-    function openModal(planName, checkoutUrl) {
-      pendingUrl  = checkoutUrl;
-      pendingPlan = planName;
-      planNameEl.textContent = "Ingresso: " + planName;
-      if (feedback) { feedback.textContent = ""; feedback.className = "tkt-form-feedback"; }
-      modal.classList.add("is-open");
+    function openModal(p, u) {
+      plan = p; url = u;
+      modalPlan.textContent = "Ingresso selecionado: " + p;
+      feedback.textContent = "";
+      feedback.className = "form-feedback";
+      modal.classList.add("open");
       modal.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
+      document.getElementById("fNome").focus();
     }
+
     function closeModal() {
-      modal.classList.remove("is-open");
+      modal.classList.remove("open");
       modal.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
     }
 
-    // Open on "Comprar" click
-    document.addEventListener("click", (e) => {
-      const btn = e.target.closest("[data-tkt-checkout]");
-      if (!btn) return;
-      e.preventDefault();
-      openModal(
-        btn.getAttribute("data-tkt-plan") || "",
-        btn.getAttribute("data-tkt-checkout") || ""
-      );
+    // Open via card buttons
+    document.addEventListener("click", e => {
+      const btn = e.target.closest("[data-url]");
+      if (btn) { e.preventDefault(); openModal(btn.dataset.plan, btn.dataset.url); }
     });
 
-    // Close
-    document.getElementById("tktModalClose").addEventListener("click", closeModal);
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
-    modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+    document.getElementById("modalClose").addEventListener("click", closeModal);
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+    modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
 
-    // ── FORM SUBMIT ──
-    form.addEventListener("submit", (e) => {
+    // ─── SUBMIT ───────────────────────────────────────
+    form.addEventListener("submit", e => {
       e.preventDefault();
 
-      const nome     = form.querySelector("#tktNome").value.trim();
-      const email    = form.querySelector("#tktEmail").value.trim();
-      const whatsapp = form.querySelector("#tktWhatsapp").value.trim();
+      const nome     = document.getElementById("fNome").value.trim();
+      const email    = document.getElementById("fEmail").value.trim();
+      const whatsapp = document.getElementById("fWpp").value.trim();
 
       if (!nome || !email || !whatsapp) {
-        feedback.textContent = "Preencha todos os campos.";
-        feedback.className = "tkt-form-feedback error";
+        feedback.textContent = "Preencha todos os campos para continuar.";
+        feedback.className = "form-feedback error";
         return;
       }
 
-      if (!pendingUrl.startsWith("http")) {
+      if (!url.startsWith("http")) {
         feedback.textContent = "Link de compra não configurado.";
-        feedback.className = "tkt-form-feedback error";
+        feedback.className = "form-feedback error";
         return;
       }
 
-      // Send lead
       const payload = JSON.stringify({
-        nome,
-        email,
-        whatsapp,
-        ingresso: pendingPlan,
-        origem: "LP Ingressos — Destrave sua Voz",
+        nome, email, whatsapp,
+        ingresso: plan,
+        origem: "Página de Ingressos — Destrave sua Voz",
         pagina: location.pathname,
         datahora: new Date().toISOString(),
         lgpd: true
@@ -525,21 +878,32 @@
 
       try {
         if (navigator.sendBeacon) {
-          navigator.sendBeacon(SHEETS_URL, new Blob([payload], { type: "text/plain;charset=utf-8" }));
+          navigator.sendBeacon(SHEETS, new Blob([payload], { type: "text/plain;charset=utf-8" }));
         } else {
-          fetch(SHEETS_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: payload, keepalive: true }).catch(() => {});
+          fetch(SHEETS, { method:"POST", mode:"no-cors", headers:{"Content-Type":"text/plain;charset=utf-8"}, body: payload, keepalive: true }).catch(()=>{});
         }
-      } catch (_) {}
+      } catch(_){}
 
-      feedback.textContent = "Recebido! Redirecionando...";
-      feedback.className = "tkt-form-feedback ok";
-
+      feedback.textContent = "Perfeito! Redirecionando...";
+      feedback.className = "form-feedback ok";
       closeModal();
 
       setTimeout(() => {
-        window.location.href = "obrigado.html?to=" + encodeURIComponent(pendingUrl);
+        window.location.href = "obrigado.html?to=" + encodeURIComponent(url);
       }, 150);
     });
+
+    // ─── SCROLL REVEAL ────────────────────────────────
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.classList.add("visible");
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll("[data-reveal]").forEach(el => io.observe(el));
   </script>
 </body>
 </html>
