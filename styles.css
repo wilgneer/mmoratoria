@@ -1249,6 +1249,7 @@ body::before {
 }
 
 @media (max-width: 720px) {
+  .hero-logo { display: none; }
   .hero { border-radius: 18px; }
   .hero-media { height: 280px; }
   .hero-title { font-size: 1.85rem; }

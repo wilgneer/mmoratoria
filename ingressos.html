@@ -473,154 +473,6 @@
     }
 
     /* ═══════════════════════════════════════
-       MODAL
-    ═══════════════════════════════════════ */
-    .modal-wrap {
-      position: fixed;
-      inset: 0;
-      z-index: 9000;
-      background: rgba(0,0,0,.88);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .modal-wrap.open { display: flex; }
-
-    .modal-box {
-      position: relative;
-      width: 100%;
-      max-width: 450px;
-      background: #0c0c0c;
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 30px;
-      padding: 42px 36px 36px;
-      box-shadow:
-        0 50px 120px rgba(0,0,0,.98),
-        0 0 0 1px rgba(255,255,255,.03);
-      animation: modal-in .28s cubic-bezier(.22,.61,.36,1) both;
-    }
-    @keyframes modal-in {
-      from { opacity: 0; transform: scale(.94) translateY(12px); }
-      to   { opacity: 1; transform: none; }
-    }
-
-    /* Shimmer line atop modal */
-    .modal-box::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 15%; right: 15%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,154,31,.5), transparent);
-      border-radius: 999px;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 18px; right: 22px;
-      width: 30px; height: 30px;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 50%;
-      color: var(--w35);
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background .18s, color .18s;
-    }
-    .modal-close:hover { background: rgba(255,255,255,.10); color: #fff; }
-
-    .modal-eyebrow {
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 8px;
-    }
-    .modal-box h2 {
-      font-size: 1.45rem;
-      font-weight: 700;
-      letter-spacing: -.025em;
-      line-height: 1.2;
-      margin-bottom: 6px;
-    }
-    .modal-plan {
-      font-size: 0.8rem;
-      color: var(--w35);
-      margin-bottom: 28px;
-    }
-
-    .form-field {
-      margin-bottom: 14px;
-    }
-    .form-field label {
-      display: block;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--w35);
-      margin-bottom: 7px;
-    }
-    .form-field input {
-      width: 100%;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 12px;
-      padding: 13px 16px;
-      color: var(--w100);
-      font-family: inherit;
-      font-size: 0.9rem;
-      outline: none;
-      transition: border-color .2s, background .2s;
-      -webkit-appearance: none;
-    }
-    .form-field input:focus {
-      border-color: rgba(255,154,31,.45);
-      background: rgba(255,154,31,.03);
-    }
-    .form-field input::placeholder { color: var(--w15); }
-
-    .form-submit {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      margin-top: 10px;
-      padding: 15px 24px;
-      border-radius: 14px;
-      border: none;
-      background: linear-gradient(135deg, #d08200, #ff9a1f 60%, #ff6e00);
-      color: #fff;
-      font-family: inherit;
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: .09em;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 0 10px 32px rgba(255,154,31,.32);
-      transition: transform .25s ease, box-shadow .25s ease;
-    }
-    .form-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 40px rgba(255,154,31,.48);
-    }
-    .form-submit:active { transform: scale(.98); }
-
-    .form-feedback {
-      font-size: 0.78rem;
-      text-align: center;
-      margin-top: 12px;
-      min-height: 16px;
-    }
-    .form-feedback.error { color: #ff7070; }
-    .form-feedback.ok    { color: #68dfa0; }
-
-    /* ═══════════════════════════════════════
        WHATSAPP FLOAT
     ═══════════════════════════════════════ */
     .wpp-float {
@@ -707,11 +559,9 @@
         </ul>
         <p class="tkt-price">R$ 97</p>
         <p class="tkt-price-note">Ingresso individual</p>
-        <button class="tkt-btn"
-          data-plan="Silver Individual"
-          data-url="https://payfast.greenn.com.br/165069?batch=13386_qGpwJ2">
+        <a class="tkt-btn" href="https://payfast.greenn.com.br/165069?batch=13386_qGpwJ2" target="_blank" rel="noopener">
           Garantir vaga <span class="arrow">→</span>
-        </button>
+        </a>
       </article>
 
       <!-- VIP INDIVIDUAL -->
@@ -728,11 +578,9 @@
         </ul>
         <p class="tkt-price">R$ 198</p>
         <p class="tkt-price-note">Ingresso individual</p>
-        <button class="tkt-btn"
-          data-plan="VIP Individual"
-          data-url="https://payfast.greenn.com.br/165069?batch=13387_Hhc3NW">
+        <a class="tkt-btn" href="https://payfast.greenn.com.br/165069?batch=13387_Hhc3NW" target="_blank" rel="noopener">
           Garantir vaga <span class="arrow">→</span>
-        </button>
+        </a>
       </article>
 
       <!-- VIP DUPLO -->
@@ -751,11 +599,9 @@
         </ul>
         <p class="tkt-price">R$ 328</p>
         <p class="tkt-price-note">Ingresso para 2 pessoas</p>
-        <button class="tkt-btn"
-          data-plan="VIP Duplo"
-          data-url="https://payfast.greenn.com.br/165069?batch=13388_ruNPfA">
+        <a class="tkt-btn" href="https://payfast.greenn.com.br/165069?batch=13388_ruNPfA" target="_blank" rel="noopener">
           Garantir vaga <span class="arrow">→</span>
-        </button>
+        </a>
       </article>
 
       <!-- BLACK -->
@@ -771,11 +617,9 @@
         </ul>
         <p class="tkt-price">R$ 398</p>
         <p class="tkt-price-note">Ingresso individual</p>
-        <button class="tkt-btn"
-          data-plan="Black Individual"
-          data-url="https://payfast.greenn.com.br/165069?batch=13388_ruNPfA">
+        <a class="tkt-btn" href="https://payfast.greenn.com.br/165069?batch=13388_ruNPfA" target="_blank" rel="noopener">
           Garantir vaga <span class="arrow">→</span>
-        </button>
+        </a>
       </article>
 
     </div>
@@ -786,121 +630,7 @@
     <img src="img/wpp.png" alt="WhatsApp" width="28" height="28" decoding="async" loading="lazy">
   </a>
 
-  <!-- ── MODAL ── -->
-  <div class="modal-wrap" id="modal" role="dialog" aria-modal="true" aria-label="Formulário de inscrição" aria-hidden="true">
-    <div class="modal-box">
-      <button class="modal-close" id="modalClose" aria-label="Fechar">&times;</button>
-
-      <p class="modal-eyebrow">Quase lá</p>
-      <h2>Um passo para garantir<br>seu ingresso</h2>
-      <p class="modal-plan" id="modalPlan"></p>
-
-      <form id="leadForm" novalidate>
-        <div class="form-field">
-          <label for="fNome">Nome completo</label>
-          <input type="text" id="fNome" name="nome" required autocomplete="name" placeholder="Como gostaria de ser chamado?">
-        </div>
-        <div class="form-field">
-          <label for="fEmail">E-mail</label>
-          <input type="email" id="fEmail" name="email" required autocomplete="email" placeholder="seuemail@exemplo.com">
-        </div>
-        <div class="form-field">
-          <label for="fWpp">WhatsApp</label>
-          <input type="tel" id="fWpp" name="whatsapp" required autocomplete="tel" placeholder="(DDD) 9 9999-9999">
-        </div>
-
-        <button type="submit" class="form-submit">
-          Garantir meu ingresso <span aria-hidden="true">→</span>
-        </button>
-
-        <p class="form-feedback" id="formFeedback" aria-live="polite"></p>
-      </form>
-    </div>
-  </div>
-
   <script>
-    // ─── CONFIG ───────────────────────────────────────
-    const SHEETS = "https://script.google.com/macros/s/AKfycbyCc_2MgAYfn1DBVWueCZrlKfHLf2nRD_mE1JMv7CxGD1N4MV-b-MajKn4kut5lZH8I/exec";
-
-    // ─── MODAL ────────────────────────────────────────
-    const modal     = document.getElementById("modal");
-    const form      = document.getElementById("leadForm");
-    const feedback  = document.getElementById("formFeedback");
-    const modalPlan = document.getElementById("modalPlan");
-    let url = "", plan = "";
-
-    function openModal(p, u) {
-      plan = p; url = u;
-      modalPlan.textContent = "Ingresso selecionado: " + p;
-      feedback.textContent = "";
-      feedback.className = "form-feedback";
-      modal.classList.add("open");
-      modal.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-      document.getElementById("fNome").focus();
-    }
-
-    function closeModal() {
-      modal.classList.remove("open");
-      modal.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-    }
-
-    // Open via card buttons
-    document.addEventListener("click", e => {
-      const btn = e.target.closest("[data-url]");
-      if (btn) { e.preventDefault(); openModal(btn.dataset.plan, btn.dataset.url); }
-    });
-
-    document.getElementById("modalClose").addEventListener("click", closeModal);
-    document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
-    modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
-
-    // ─── SUBMIT ───────────────────────────────────────
-    form.addEventListener("submit", e => {
-      e.preventDefault();
-
-      const nome     = document.getElementById("fNome").value.trim();
-      const email    = document.getElementById("fEmail").value.trim();
-      const whatsapp = document.getElementById("fWpp").value.trim();
-
-      if (!nome || !email || !whatsapp) {
-        feedback.textContent = "Preencha todos os campos para continuar.";
-        feedback.className = "form-feedback error";
-        return;
-      }
-
-      if (!url.startsWith("http")) {
-        feedback.textContent = "Link de compra não configurado.";
-        feedback.className = "form-feedback error";
-        return;
-      }
-
-      const payload = JSON.stringify({
-        nome, email, whatsapp,
-        ingresso: plan,
-        origem: "Página de Ingressos — Destrave sua Voz",
-        pagina: location.pathname,
-        datahora: new Date().toISOString(),
-        lgpd: true
-      });
-
-      try {
-        if (navigator.sendBeacon) {
-          navigator.sendBeacon(SHEETS, new Blob([payload], { type: "text/plain;charset=utf-8" }));
-        } else {
-          fetch(SHEETS, { method:"POST", mode:"no-cors", headers:{"Content-Type":"text/plain;charset=utf-8"}, body: payload, keepalive: true }).catch(()=>{});
-        }
-      } catch(_){}
-
-      feedback.textContent = "Perfeito! Redirecionando...";
-      feedback.className = "form-feedback ok";
-      closeModal();
-
-      setTimeout(() => {
-        window.location.href = "obrigado.html?to=" + encodeURIComponent(url);
-      }, 150);
-    });
 
     // ─── SCROLL REVEAL ────────────────────────────────
     const io = new IntersectionObserver((entries) => {
