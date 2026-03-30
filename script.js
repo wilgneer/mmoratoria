@@ -17,6 +17,7 @@ const SHEETS_BSB_URL = "https://script.google.com/macros/s/AKfycbzmqjQX8iZf60rhA
 // Destinos dos CTAs (após o obrigado) — por cidade
 const CTA_NEXT_BH_URL  = "https://payfast.greenn.com.br/pre-checkout/ttvfaa7";
 const CTA_NEXT_BSB_URL = "https://payfast.greenn.com.br/pre-checkout/158548";
+const TITAN_WEBHOOK_URL = "https://webhook.titansolutions.com.br/webhook/destrave1204";
 
 // ===============================
 // HELPERS
@@ -34,6 +35,36 @@ function sheetsUrlByCity(city){
 }
 function ctaNextByCity(city){
   return normCity(city) === "bsb" ? CTA_NEXT_BSB_URL : CTA_NEXT_BH_URL;
+}
+
+function sendToTitan(data){
+  if (!isValidHttp(TITAN_WEBHOOK_URL)) {
+    console.warn("Webhook Titan inválido:", TITAN_WEBHOOK_URL);
+    return false;
+  }
+
+  const body = JSON.stringify(data);
+
+  try {
+    if (navigator.sendBeacon) {
+      const blob = new Blob([body], { type: "application/json;charset=utf-8" });
+      navigator.sendBeacon(TITAN_WEBHOOK_URL, blob);
+      return true;
+    }
+
+    fetch(TITAN_WEBHOOK_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+      body,
+      keepalive: true,
+    }).catch(() => {});
+
+    return true;
+  } catch (err) {
+    console.error("Erro ao enviar webhook Titan:", err);
+    return false;
+  }
 }
 
 // ===============================
@@ -410,6 +441,29 @@ function setupLiteYouTube() {
   });
 }
 setupLiteYouTube();
+
+// ===============================
+// TRACK - todos os botões
+// ===============================
+(function trackAllButtonClicks(){
+  document.addEventListener("click", (e) => {
+    const target = e.target.closest("button, a, [role='button']");
+    if (!target) return;
+
+    const payload = {
+      event: "botao_clicado",
+      tag: target.tagName.toLowerCase(),
+      id: target.id || null,
+      classes: target.className || null,
+      text: (target.textContent || "").trim().slice(0, 100),
+      href: target.tagName.toLowerCase() === "a" ? target.href : null,
+      timestamp: new Date().toISOString(),
+      pagina: location.pathname,
+    };
+
+    sendToTitan(payload);
+  });
+})();
 
 // ===============================
 // Service Worker
